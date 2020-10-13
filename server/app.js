@@ -1,30 +1,50 @@
 import express from 'express';
-const app = express()
-import dotenv from 'dotenv' ;   
+import dotenv from 'dotenv' ;
+import DB from './components/db.js';
+import cors from 'cors';
+const app = express()   
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use(cors());
 dotenv.config();
 
- PORT = process.env.PORT || 6969;
-
-
-
-
-
-function testMiddleware(res,req,next)
+DB.connect((err)=>
 {
-    console.log('hello')
+    if(err) {
+        console.log('error connecting DB' + err.stack );
+        return;
+    }
+    console.log('connection success');
+});
+const PORT = process.env.PORT || 6969;
+
+function testMiddleware(req,res,next)
+{
     next()
+    if(req.params.id === '2') {console.log('yes');}
+    else console.log('no');
+    
 }
 
-app.get('/:id',testMiddleware,(req,res)=>
+function loginMiddleware(req,res,next)
 {
-    res.send(`${req.id}`);
-})
+    if(req.body.id === 'near' && req.body.password === 'lol') {
+        req.class = 'admin';
+        next()
+    }
+    res.send('fk you');
+}
 
-app.get('/sad',testMiddleware,(req,res)=>
-{
-    res.send('sad');
-})
+/*            FOR MM                                        */
+import {Material} from './components/MM/MaterialRouter.js';
+import { MMhead } from './components/MM/MMhead.js';
+import {Vendors} from './components/MM/Vendors.js'
+app.use('/api/material',Material);
+app.use('/api/vendors',Vendors)
+app.use('/api/mmhead',MMhead)
 
+
+/* FOR SD */
 app.listen(PORT,()=>
 {
     console.log(`hello from PORT: ${PORT}` );
