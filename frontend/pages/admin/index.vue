@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <b-container fluid="sm">
+      <h1>MM Modules</h1>
         <b-row>
           <b-col  xl="4" md="6"  class="mt-3 mb-4" v-for="link in links" :key="link.link">
               <nuxt-link :to="link.link">
@@ -23,17 +24,36 @@ import { reactive }  from 'vue';
 
 export default {
   head :{
-    title: 'HOME',
+    title: 'MM',
   },
   name :'index',
+  data(){
+    return{
+      links : [
+        {link :'/admin/organization' ,menuname:"Organization"},
+        {link :'/admin/material', menuname:"Materials"},
+        {link:'/mm/invoices', menuname:"Invoices"},
+        {link:'/mm/supply', menuname:"Supplies Sources"},
+        {link:'/mm/stock',menuname:"Stock"},
+        {link:'/mm/storage',menuname:"Storage"}
+      ],
+    }
+  },
+
+
 }
 
 </script>
 
 <style lang="css" scoped>
+h1{
+    margin:20px 20px;
+    border-bottom : 2px solid black;
+}
   .container{
     min-height:90vh;
     width:90%;
+    margin-bottom:10px;
   }
   a{
     text-decoration:none;

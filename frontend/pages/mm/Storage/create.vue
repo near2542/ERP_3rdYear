@@ -1,11 +1,25 @@
 <template>
   <div class="middle">
-      <nuxt-link to="/vendors"> <b-button variant="outline-primary">Go back to Vendors list</b-button> </nuxt-link>
+      <nuxt-link to="/mm/material"> <b-button variant="outline-primary">Go back to Material list</b-button> </nuxt-link>
     <div v-if="msg" :class="this.msg.status">{{this.msg.msg}}</div>
+
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+       <b-form-group
+        id="input-group-1"
+        label="Material Code"
+        label-for="MatCode"
+      >
+        <b-form-input
+          id="input-1"
+          v-model="form.code"
+          type="text"
+          required
+          placeholder="Material Code"
+        ></b-form-input>
+      </b-form-group>
       <b-form-group
         id="input-group-1"
-        label="Vendor Name"
+        label="Material Name"
         label-for="Vendor"
       >
         <b-form-input
@@ -13,41 +27,36 @@
           v-model="form.name"
           type="text"
           required
-          placeholder="Vendor Name"
+          placeholder="Material Name"
         ></b-form-input>
       </b-form-group>
-
-<b-form-group id="input-group-2" label="Address:" label-for="input-2">
-        <b-form-textarea
-          id="input-2"
-          v-model="form.address"
+<!-------------------------------------------------------------------------->
+<b-form-group
+        id="input-group-1"
+        label="Material Description"
+        label-for="Material Description"
+      >
+        <b-form-input
+          id="input-1"
+          v-model="form.description"
           type="text"
-          required
-          placeholder="Address"
-        ></b-form-textarea>
+          placeholder="Material Description "
+        ></b-form-input>
       </b-form-group>
-
-      <b-form-group id="input-group-2" label="Vendor Phone Number:" label-for="input-2">
+<!-------------------------------------------------------------------------->
+      <b-form-group id="input-group-2" label="Price:" label-for="input-2">
         <b-form-input
           id="input-2"
-          v-model="form.number"
+          v-model="form.price"
           type="number"
+          step="any"
           required
-          placeholder="Enter number"
+          placeholder="Enter Price"
         ></b-form-input>
       </b-form-group> 
-
-      <b-form-group id="input-group-2" label="Vendor Email:" label-for="input-2">
-        <b-form-input
-          id="input-2"
-          v-model="form.email"
-          type="email"
-          required
-          placeholder="Enter Email"
-        ></b-form-input>
-      </b-form-group> 
-
-
+<!-------------------------------------------------------------------------->
+      
+<!-------------------------------------------------------------------------->
       <b-button type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
@@ -60,15 +69,15 @@
 <script>
   export default {
       head:{
-          title:'Create vendors'
+          title:'Create Material'
       },
     data() {
       return {
         form: {
+          code:'',
           name: '',
-          address : '',
-          number: '',
-          email: '',
+          description : '',
+          price: '',
         },
         msg:'',
         foods: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
@@ -76,21 +85,25 @@
       }
     },
     methods: {
-      onSubmit(evt) {
+     async onSubmit(evt) {
         evt.preventDefault()
-        this.fetchPost((JSON.stringify(this.form)))
+        await this.fetchPost((JSON.stringify(this.form)))
+          this.form.code=''
+          this.form.name= ''
+          this.form.description = ''
+          this.form.price=''
+        
       },
       async fetchPost(data){
           try{
-          await this.$axios.$post(`/api/material`, data, {
+          await this.$axios.$post(`/api/mm/material`, JSON.stringify(data), {
             headers: {
             'Content-Type': 'application/json'
             }});
             this.msg = {status:"passed",
-                         msg:"Vendor has been added to list" ,
+                         msg:"Material has been added to list" ,
                         }}
          catch(err){
-             console.log(err)
              this.msg = {status:"error",
                          msg:"something went wrong" ,
                         }
@@ -99,8 +112,10 @@
       onReset(evt) {
         evt.preventDefault()
         // Reset our form values
-        this.form.name = ''
-        //this.form.name = ''
+        this.form.code=''
+          this.form.name= ''
+          this.form.description = ''
+          this.form.price=''
         //this.form.food = null
         //this.form.checked = []
         // Trick to reset/clear native browser form validation state

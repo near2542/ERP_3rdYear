@@ -1,0 +1,10 @@
+##### Search for stock;
+SELECT StorageName,MaterialName,sum(qty) as qty
+FROM storage inner join stock on stock.idStorage = Storage.idStorage 
+inner join material on Material.idMaterial = stock.idMaterial 
+where StockStat = 1
+group by stock.idStorage,stock.idMaterial
+order by StorageName;
+#####
+
+

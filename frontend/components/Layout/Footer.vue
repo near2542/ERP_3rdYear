@@ -14,6 +14,7 @@
 </script>
 
 <style lang="css" scoped>
+
     footer {
         background-color:black;
         display:flex;
@@ -22,6 +23,6 @@
         padding-top:10px;
         color:white;
         height:50px;
-        width:100vw;
+        width:100%;
     }
 </style>

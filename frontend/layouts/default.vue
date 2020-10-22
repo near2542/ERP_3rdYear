@@ -5,8 +5,13 @@
     <Footer/>
   </div>
 </template>
+<script>
 
-<style>
+
+
+</script>
+
+<!--<style>
 html {
   font-family:
     'Source Sans Pro',
@@ -61,4 +66,4 @@ html {
   color: #fff;
   background-color: #35495e;
 }
-</style>
+</style> -->

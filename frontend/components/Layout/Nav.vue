@@ -1,11 +1,15 @@
 <template>
-    <div>
-        <ul class="link-container">
-           <li class="logo"> <nuxt-link to="/">Home</nuxt-link> </li>
-           <li class="login" v-show="false"> <nuxt-link to="/home">Login</nuxt-link> </li>
-           
+    <nav>
+        <div class="logo">
+            <nuxt-link to="/">Euphoria Speed</nuxt-link>
+        </div>
+        <ul>
+           <li><nuxt-link to="/mm">Material Management</nuxt-link></li>
+           <li><nuxt-link to="/sd">Sales & Distribution</nuxt-link></li>
+           <li><nuxt-link to="/admin">Admin</nuxt-link></li>
+           <li class="login" v-show="false"> <nuxt-link to="/home">Login</nuxt-link> </li>   
         </ul>
-    </div>
+    </nav>
 </template>
 
 <script>
@@ -14,6 +18,10 @@
 </script>
 
 <style lang="css" scoped>
+*{
+    margin:0;
+    padding:0;
+}
 
     a{
         color:white;
@@ -23,15 +31,27 @@
     a:hover{
         color : green;
     }
-    ul{
+    nav{
+        padding:10px 0;
         display:flex;
-        align-content: center;
-        justify-content: space-between;
+        background-color:black;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        font-size:20px;  
+        width:100%}
+    nav>ul{
+        display:flex;
+        align-items: center;
         list-style-type: none;
-         color:black !important;
         font-size:20px;
     }
-    ul>li:nth-of-type(0){
+    ul{
+        display:flex;
+        justify-content: space-between;
+        padding-left:20px;
+    }
+    ul>li{
         padding-left:20px;
     }
     .logo{
@@ -39,6 +59,8 @@
     }
     .login{
         padding-right:20px;
+        display:flex;
+        justify-self: flex-start;
     }
     .link-container{
         width:100%;

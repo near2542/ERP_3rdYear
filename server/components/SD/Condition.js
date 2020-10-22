@@ -15,10 +15,9 @@ router.get('/',async (req,res)=>
 router.post('/',async (req,res)=>
 {
     const todaydate = new Date().toISOString().slice(0,10).toString();
-    console.log(todaydate)
     DB.query(`INSERT into vendors 
-            values ('','${req.body.name}','${req.body.street}','${req.body.country}','${req.body.city}','${req.body.postalcode}','${todaydate}',
-            '${req.body.phone}','${req.body.email}','') ;`
+            values ('','${req.body.name}','${req.body.street}','${req.body.country}','${req.body.city}','${req.body.postalcode}','${req.body.email}',
+            '${req.body.phone}','${todaydate}','') ;`
             ,(err,result)=>
                 {
                 if(err) throw err;
