@@ -1,0 +1,15 @@
+INSERT INTO `mydb`.`org` (`code`, `ORGname`, `ORGStreet`, `ORGCountry`, `ORGCity`, `ORGPostalCode`) VALUES ('NUNEAR', 'NUNEAR', 'NUNEAR', 'NUNEAR', 'NUNEAR', 'NUNEAR');
+INSERT INTO `mydb`.`mmdoctype` (`Name`) VALUES ('PR');
+INSERT INTO `mydb`.`mmdoctype` (`Name`) VALUES ('PO');
+INSERT INTO `mydb`.`mmdoctype` (`Name`) VALUES ('GR');
+INSERT INTO `mydb`.`mmdoctype` (`Name`) VALUES ('INV');
+INSERT INTO `mydb`.`storage` (`idORG`, `StorageName`, `StorageStreet`, `StorageCountry`, `StorageCity`, `StoragePostalCode`, `Capacity`) VALUES ('1', 'NUNEAR', 'NUNEAR', 'NUNEAR', 'NUNEAR', 'NUNEAR', '40000');
+INSERT INTO `mydb`.`storage` (`idORG`, `StorageName`, `StorageStreet`, `StorageCountry`, `StorageCity`, `StoragePostalCode`, `Capacity`) VALUES ('1', 'NUNEAR #2', 'NUNEAR #2', 'NUNEAR #2', 'NUNEAR #2', 'NUNEAR #2', '40000');
+INSERT INTO `mydb`.`material` (`MaterialCode`, `MaterialName`, `MaterialDes`, `Price`, `weight`) VALUES ('SEN200', 'SEN BLACK', '', '44', '0.4');
+INSERT INTO `mydb`.`material` (`MaterialCode`, `MaterialName`, `MaterialDes`, `Price`, `weight`) VALUES ('SEN300', 'SEN WHITE', '', '44', '0.4');
+INSERT INTO `mydb`.`documentstat` (`idDocStat`, `Name`) VALUES (1, 'On Progress');
+INSERT INTO `mydb`.`documentstat` (`idDocStat`, `Name`) VALUES (2, 'Refered');
+INSERT INTO `mydb`.`documentstat` (`idDocStat`, `Name`) VALUES (3, 'Done');
+INSERT INTO `mydb`.`stockstat` (`idStat`, `Name`) VALUES ('', 'Sellable');
+INSERT INTO `mydb`.`stockstat` (`idStat`, `Name`) VALUES ('', 'On-delivery');
+INSERT INTO `mydb`.`stockstat` (`idStat`,`Name`) VALUES ('','Sold');
