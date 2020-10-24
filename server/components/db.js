@@ -9,6 +9,7 @@ const DB = mysql.createConnection({
     user:process.env.user,
     password:process.env.password,
     database:process.env.dbname,
+    multipleStatements: true
 })
 
 export default DB;

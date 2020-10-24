@@ -24,7 +24,7 @@ router.post('/',async (req,res)=>
 {   
    const todaydate = new Date().toISOString().slice(0,10).toString();
     DB.query(`INSERT INTO Sources
-            values ('','${req.body.vendorsID}','${req.body.materialID}','${todaydate}','') ;`
+            values ('','${todaydate}','','${req.body.vendorsID}','${req.body.materialID}') ;`
             ,(err,result)=>
     {
         if(err) console.log(err)

@@ -9,7 +9,7 @@ router.get('/',async (req,res)=>
     
     DB.query(`select * from sdDoc left join SDtype on sdDoc.Type = SDtype.Type 
     left join Customer on SDDoc.idCustomer = Customer.idCustomer
-    where sdDoc.Type= 2
+    where sdDoc.Type= 5
     order by idDoc DESC    `,(err,result)=>
     {
         if(err) throw err;
@@ -20,12 +20,12 @@ router.get('/',async (req,res)=>
 router.get('/:id',async (req,res)=>
 {
     console.log('imhere')
-    DB.query(`SELECT  SDDoc.* , idMaterial , MaterialCode , MaterialName , MaterialDes ,Price ,weight ,qty, customer.*,SDType.Name
+    DB.query(`SELECT  SDDoc.* , idMaterial , MaterialCode , MaterialName , MaterialDes ,Price ,weight ,qty, customer.*,SDType.Name,cusPO
     from SDDoc left join SdDocDetails on SDDoc.idDoc = SdDocDetails.idDoc
    left join Material on idMaterial = matID
    left join customer on customer.idCustomer = SDDoc.idCustomer
    left join SDtype on Sdtype.type = SDDoc.type
-   where SDDoc.idDoc = ${req.params.id} and SDDoc.Type = 2 ; `,(err,result)=>
+   where SDDoc.idDoc = ${req.params.id} and SDDoc.Type = 5  ; `,(err,result)=>
     {
         if(err) console.log(err);
         res.json(result);
@@ -35,16 +35,27 @@ router.get('/:id',async (req,res)=>
 router.post('/',async (req,res)=>
 {   
    const todaydate = new Date().toISOString().slice(0,10).toString();
-   const {idDoc,valid_to,request_date,description,idDiscount,idCustomer} = req.body
+   const {idDoc,request_date,description,idDiscount,idCustomer,customerPO,Order,idStorage} = req.body
     console.log(req.body);
     console.log('------------------------------this was in SDDoc Quotation------------------------------')
     DB.query(`INSERT INTO SDDoc values  
-    ('','${request_date}','${valid_to}','${description}','${idDiscount}',2,1,'${idDoc}','',${idCustomer},null) ;`
+    ('','${todaydate}','${request_date}','${description}','${idDiscount}',5,1,'${Order}',${customerPO},${idCustomer},${idStorage}) ;`
             ,(err,result)=>
     {
-        if(err) res.json(err);
+        if(err) console.log(err)
         console.log(result);
         console.log('create SDDoc success')
+        res.json(result);
+    });
+})
+router.get('/totalNeed/:id',async(req,res)=>
+{
+    DB.query(`select SdDocDetails.*,sum(qty) from SdDocDetails left join Material on sdDocDetails.matID = idMaterial
+    where idDoc = ${req.params.id}  group by idMaterial 
+    `,(err,result)=>
+    {
+        if(err) throw err;
+        console.log('success');
         res.json(result);
     });
 })
@@ -76,7 +87,7 @@ router.get('/get/lastid',async(req,res)=>
 {
     console.log('im here')
     DB.query(`SELECT idDoc  from SDDoc 
-            where Type=2
+            where Type=5
             order by idDoc desc 
              limit 1;`
             ,(err,result)=>
@@ -104,4 +115,4 @@ console.log(id);
 
 
 
-export  {router as Quotation};
+export  {router as pack};

@@ -96,4 +96,4 @@ console.log('bug here');
         console.log('success');
     });
 })
-export  {router as shipping};
+export  {router as summary};

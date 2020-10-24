@@ -2,7 +2,7 @@
     <div class="middle">
         
 
-       <nuxt-link to="/sd/customers/create"> <b-button variant="success">Create customer</b-button> </nuxt-link>
+       <nuxt-link to="/sd/condition/create"> <b-button variant="success">Create Condition</b-button> </nuxt-link>
        <div class="search" >
        <b-form-input
             class="col-4"
@@ -19,27 +19,30 @@
                     <caption>{{filtered.length}} results found</caption>
                     <b-thead head-variant="dark">
                         <b-tr>
-                              <b-th colspan="3">Name</b-th>
-                              <b-th colspan="3">Address</b-th>
-                              <b-th colspan="3">Contact</b-th>
+                              <b-th colspan="3">Material Code</b-th>
+                              <b-th colspan="9">Description</b-th>
+                              <b-th colspan="6">Minimum</b-th>
+                              <b-th colspan="6">Discount(5%)</b-th>
                               <b-th colspan="1">Created at</b-th>
                               <b-th colspan="4">Action</b-th>
                         </b-tr>
                      </b-thead>
                      <b-tbody>
                         <b-tr v-for="(customer,index) in filtered" :key="customer.idCustomer">
-                              <b-td colspan="3">{{customer.CustomerName}}</b-td>
-                              <b-td colspan="3">
-                                  <p>{{customer.CustomerStreet}} {{customer.CustomerCountry}}</p>
-                                  <p>{{customer.CustomerCity}} {{customer.CustomerPostalCode}}</p>
+                              <b-td colspan="3">{{customer.MaterialCode}}</b-td>
+                              <b-td colspan="9">
+                                 {{customer.description}}
                               </b-td>
-                              <b-td colspan="3">
-                                  <p>{{customer.Email}}</p>
-                                  <p>{{customer.Tel}}</p>
+                              <b-td colspan="6">
+                                  {{customer.min}}
+                                 
+                                  </b-td>
+                              <b-td colspan="6">
+                                {{customer.percentage}}
                                   </b-td>
                               <b-td colspan="1">{{customer.Date_added}}</b-td>
                               <b-td colspan="4">
-                                <b-icon-trash-fill variant="danger" @click="showMsgBoxTwo(customer.idCustomer,index)" scale="1.5"></b-icon-trash-fill>
+                                <b-icon-trash-fill variant="danger" @click="showMsgBoxTwo(customer.id,index)" scale="1.5"></b-icon-trash-fill>
                               </b-td>
                         </b-tr>
                       </b-tbody>  
@@ -67,8 +70,9 @@
         methods:{
          async  Delete(confirm,id,index)
             {   if(!confirm) return
-                   await this.$axios.$put(`/api/sd/customer/${id}`,null , null);
-                   this.customers.splice(index,1)
+                   await this.$axios.$put(`/api/sd/condition/${id}`,null , null);
+                   this.datas.splice(index,1)
+                   this.msg = { status:"success", message:"Deleted Success"}
             },
            async showMsgBoxTwo(params,index) {
                 this.delete = false
@@ -85,8 +89,6 @@
                   hideHeaderClose: false,
                   centered: true,  })
               await this.Delete(value,params,index)
-              console.log('inside')
-               this.msg = { status:"success", message:"Deleted Success"}
             }
           catch(err){
               console.log(err);
@@ -97,21 +99,22 @@
         computed:{
         filtered:function()
           {
-            return this.customers.filter( customer=> customer.CustomerName.toLowerCase().match(this.search.toLowerCase()) )
+            return this.datas.filter( customer=> customer.description.toLowerCase().match(this.search.toLowerCase()) )
           },
           length:function(){
-              return this.customers.length;
+              return this.datas.length;
           },
         },
      async asyncData({$axios})
   {
-    const data = await $axios.$get('/api/sd/customer')
-    const customers = data.map((customer) =>
+    const data = await $axios.$get('/api/sd/condition')
+    console.log(data);
+    const datas = data.map((customer) =>
     {
         customer.Date_added = customer.Date_added.toString().slice(0,10)
         return customer; 
     })
-    return {customers}
+    return {datas}
   },
        
         }

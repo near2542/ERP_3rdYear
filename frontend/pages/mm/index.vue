@@ -34,7 +34,6 @@ export default {
         {link :'/mm/material', menuname:"Materials"},
         {link:'/mm/stock',menuname:"Stock"},
         {link:'/mm/supply', menuname:"Supplies Sources"},
-        {link:'/mm/invoices', menuname:"Invoices"},
         {link:'/mm/requistion',menuname:"Purchase Requistion"},
         {link:'/mm/purchase',menuname:"Purchase Order"},
         {link:'/mm/goodreceipt',menuname:"Good Receipt"},

@@ -31,10 +31,16 @@ export default {
     return{
       links : [
         {link :'/sd/customers' ,menuname:"Customers"},
-        {link:'/sd/invoices', menuname:"Invoices"},
-        {link:'/sd/quotations', menuname:"Stocks"},
-        {link:'/sd/purchase', menuname:"Purchase"},
-        {link:'/sd/supply', menuname:"Supplies Source"},
+        {link :'/sd/condition' ,menuname:"Condition"},
+        {link :'/sd/stock' ,menuname:"Stock"},
+        {link:'/sd/inquiry', menuname:"Inquiry"},
+        {link:'/sd/quotation', menuname:"Quotation"},
+        {link:'/sd/sales', menuname:"Sales Order"},
+        {link:'/sd/picking', menuname:"Picking Order"},
+        {link:'/sd/packing', menuname:"Packing Order"},
+        {link:'/sd/billing', menuname:"Billing"},
+        {link:'/sd/summary', menuname:"Sales Summary"},
+
       ],
     }
   },

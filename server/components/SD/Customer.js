@@ -22,7 +22,7 @@ router.post('/',async (req,res)=>
    const todaydate = new Date().toISOString().slice(0,10).toString();
    const {name,street,country,city,postalcode,email,phone,member} = req.body
     console.log(req.body);
-    DB.query(`INSERT INTO customer values  ('','${name}','${street}','${country}','${city}','${postalcode}','${email}','${phone}','${todaydate}',${member},'') ;`
+    DB.query(`INSERT INTO customer values  ('','${name}','${street}','${country}','${city}','${postalcode}','${todaydate}','${email}','${phone}',${member},0) ;`
             ,(err,result)=>
     {
         if(err) res.json(err);

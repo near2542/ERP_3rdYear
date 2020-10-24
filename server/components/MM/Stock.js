@@ -9,18 +9,20 @@ router.get('/',async (req,res)=>
 {
     console.log('imhere');
     DB.query(`
-    SELECT StorageName,MaterialCode,MaterialName,sum(qty) as qty
+    SELECT Material.idMaterial,Storage.idStorage,StorageName,MaterialCode,MaterialName,sum(qty) as qty
     FROM storage inner join stock on stock.idStorage = Storage.idStorage 
     inner join material on Material.idMaterial = stock.idMaterial 
     where StockStat = 1
     group by stock.idStorage,stock.idMaterial
-    order by StorageName;
+    order by StorageName,MaterialCode;
     `,(err,result)=>
     {
         if(err) console.log(err)
         res.json(result);
     });
 })
+
+
 
 
 
@@ -95,6 +97,43 @@ router.post('/detail',async(req,res)=>
     });
 })
 
+router.post('/ondelivery',async(req,res)=>
+{
+    const {Material,idStorage} = req.body
+    let Todaydate = new Date().toISOString().slice(0,10).toString();
+    let sql = `INSERT INTO Stock values `
+    sql += `(${idStorage},${Material[0].idMaterial},${Material[0].qty},'${Todaydate}',2)`
+    for(let i=1 ; i<Material.length;i++)
+    {
+      sql += `,(${idStorage},${Material[i].idMaterial},${Material[i].qty},'${Todaydate}',2)`
+    }
+    DB.query(`${sql}`
+            ,(err,result)=>
+    {
+        if(err) console.log(err);
+        res.json(result)
+    });
+
+})
+
+router.post('/sold',async(req,res)=>
+{
+    const {Material,idStorage} = req.body
+    let Todaydate = new Date().toISOString().slice(0,10).toString();
+    let sql = `INSERT INTO Stock values `
+    sql += `(${idStorage},${Material[0].idMaterial},${Material[0].qty},'${Todaydate}',3)`
+    for(let i=1 ; i<Material.length;i++)
+    {
+      sql += `,(${idStorage},${Material[i].idMaterial},${Material[i].qty},'${Todaydate}',3)`
+    }
+    DB.query(`${sql}`
+            ,(err,result)=>
+    {
+        if(err) console.log(err);
+        res.json(result)
+    });
+
+})
 
 
 router.put('/:id',async(req,res)=>

@@ -1,8 +1,6 @@
 <template>
     <div class="middle">
         
-
-       <nuxt-link to="/sd/customers/create"> <b-button variant="success">Create customer</b-button> </nuxt-link>
        <div class="search" >
        <b-form-input
             class="col-4"
@@ -15,31 +13,36 @@
         <b-alert class="noti" v-if="msg.status=='success'" variant="success" show>{{msg.message}}</b-alert>
         <b-alert class="noti" v-if="msg.status=='danger'" variant="danger" show>{{msg.message}}</b-alert>
         <div>
-        <b-table-simple hover caption-top striped bordered>
+        <b-table-simple hover caption-top bordered striped>
                     <caption>{{filtered.length}} results found</caption>
                     <b-thead head-variant="dark">
                         <b-tr>
-                              <b-th colspan="3">Name</b-th>
-                              <b-th colspan="3">Address</b-th>
-                              <b-th colspan="3">Contact</b-th>
-                              <b-th colspan="1">Created at</b-th>
+                              <b-th colspan="3">ID</b-th>
+                              <b-th colspan="3">Vendors Name</b-th>
+                              <b-th colspan="4">Description</b-th>
+                              <b-th colspan="3">request_date </b-th>
+                              <b-th colspan="3">Valid To</b-th>
                               <b-th colspan="4">Action</b-th>
                         </b-tr>
                      </b-thead>
                      <b-tbody>
-                        <b-tr v-for="(customer,index) in filtered" :key="customer.idCustomer">
-                              <b-td colspan="3">{{customer.CustomerName}}</b-td>
-                              <b-td colspan="3">
-                                  <p>{{customer.CustomerStreet}} {{customer.CustomerCountry}}</p>
-                                  <p>{{customer.CustomerCity}} {{customer.CustomerPostalCode}}</p>
-                              </b-td>
-                              <b-td colspan="3">
-                                  <p>{{customer.Email}}</p>
-                                  <p>{{customer.Tel}}</p>
-                                  </b-td>
-                              <b-td colspan="1">{{customer.Date_added}}</b-td>
+                        <b-tr v-for="(data,index) in filtered" :key="data.idDoc">
+                              <b-td colspan="3">{{data.idDoc}}</b-td>
+                              <b-td colspan="3">{{data.CustomerName}}</b-td>
+                              <b-td colspan="4">{{data.description}}</b-td>
+                              <b-td colspan="3">{{data.request_date}}</b-td>
+                              <b-td colspan="3">{{data.ValidTo}}</b-td>
                               <b-td colspan="4">
-                                <b-icon-trash-fill variant="danger" @click="showMsgBoxTwo(customer.idCustomer,index)" scale="1.5"></b-icon-trash-fill>
+                                
+                              <div v-if="data.Stat == 1">
+                            <nuxt-link :to="`/sd/picking/create?ref=${data.idDoc}`">Make Picking</nuxt-link>
+                            <nuxt-link :to="`/sd/sales/${data.idDoc}`"><b-icon-eye-fill class="mr-2" variant="success"  scale="1.5"></b-icon-eye-fill></nuxt-link>
+                            </div>
+                            
+                            <div v-else>
+                              Refered
+                              <nuxt-link :to="`/sd/quotation/${data.idDoc}`"><b-icon-eye-fill class="mr-2" variant="success"  scale="1.5"></b-icon-eye-fill></nuxt-link>
+                            </div>
                               </b-td>
                         </b-tr>
                       </b-tbody>  
@@ -55,25 +58,25 @@
 
     export default {
         head:{
-            title:'customers'
+            title:'Material list'
         },
         data(){
             return{
             search : '',
             msg : '',
-            delete:'',
         }
     },
         methods:{
          async  Delete(confirm,id,index)
             {   if(!confirm) return
-                   await this.$axios.$put(`/api/sd/customer/${id}`,null , null);
-                   this.customers.splice(index,1)
+                   await this.$axios.$put(`/api/sd/inquiry/${id}`,null , null);
+                  this.Mats.splice(index,1)
+                   this.msg = { status:"success", message:"Deleted Success"}
             },
            async showMsgBoxTwo(params,index) {
                 this.delete = false
                 try{
-                const value = await this.$bvModal.msgBoxConfirm('Please confirm that you want to delete.', {
+                const value = await this.$bvModal.msgBoxConfirm('Please confirm that you want to delete everything.', {
                   title: 'Please Confirm',
                   size: 'ml',
                   buttonSize: 'ml',
@@ -85,8 +88,7 @@
                   hideHeaderClose: false,
                   centered: true,  })
               await this.Delete(value,params,index)
-              console.log('inside')
-               this.msg = { status:"success", message:"Deleted Success"}
+              console.log(this.Mats)
             }
           catch(err){
               console.log(err);
@@ -97,21 +99,27 @@
         computed:{
         filtered:function()
           {
-            return this.customers.filter( customer=> customer.CustomerName.toLowerCase().match(this.search.toLowerCase()) )
+            return this.datas.filter(requis=> requis.idDoc.toLowerCase().match(this.search.toLowerCase()) 
+            || requis.CustomerName.toLowerCase().match(this.search.toLowerCase()) )
           },
           length:function(){
-              return this.customers.length;
+              return this.datas.length;
           },
+          
         },
+        /* Fetch Data Before loaded*/
      async asyncData({$axios})
   {
-    const data = await $axios.$get('/api/sd/customer')
-    const customers = data.map((customer) =>
+    const data = await $axios.$get('/api/sd/sales')
+    console.log(data)
+   const datas = data.map((inq) =>
     {
-        customer.Date_added = customer.Date_added.toString().slice(0,10)
-        return customer; 
+        inq.request_date = inq.request_date.toString().slice(0,10)
+        inq.ValidTo = inq.valid_to.toString().slice(0,10)
+        return inq; 
     })
-    return {customers}
+    console.log(datas)
+  return {datas};
   },
        
         }

@@ -59,7 +59,24 @@ app.use('/api/mm/stock',stock)
 
 /* FOR SD */
 import {Customer} from './components/SD/Customer.js';
+import {Condition} from './components/SD/Condition.js';
+import {Inquiry} from './components/SD/Inquiry.js';
+import {Quotation} from './components/SD/Quotation.js';
+import {salesorder} from './components/SD/SalesOrder.js';
+import {pick} from './components/SD/pick.js';
+import {pack} from './components/SD/pack.js';
+import {billing} from './components/SD/billing.js';
+import {summary} from './components/SD/summary.js';
 app.use('/api/sd/customer',Customer)
+app.use('/api/sd/condition',Condition)
+app.use('/api/sd/inquiry',Inquiry)
+app.use('/api/sd/quotation',Quotation)
+app.use('/api/sd/sales',salesorder)
+app.use('/api/sd/pick',pick)
+app.use('/api/sd/pack',pack)
+app.use('/api/sd/billing',billing)
+app.use('/api/sd/summary',summary)
+
 
 
 /* FOR ADMIN */

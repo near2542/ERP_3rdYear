@@ -13,7 +13,7 @@
                                  <b-th colspan="3">Unit Price($)</b-th>
                                  <b-th colspan="3">QTY ORDERED </b-th>
                                  <b-th colspan="3">QTY RECEIVED</b-th>
-                                 <b-th colspan="3">Total ($)</b-th>
+                                 <b-th colspan="3">Backorder QTY</b-th>
                            </b-tr>
                         </b-thead>
                         <b-tbody>
@@ -24,11 +24,10 @@
                                  <b-td colspan="3">{{requis.price}}</b-td>
                                  <b-td colspan="3">{{requis.qty}}</b-td>
                                  <b-td colspan="3">{{requis.qty}}</b-td>
-                                 <b-td colspan="3">{{requis.qty*requis.price}}</b-td>
+                                 <b-td colspan="3">{{requis.qty-requis.qty}}</b-td>
                            </b-tr>
                            <b-tr>
-                                 <b-td colspan="18" style="text-align:right"><strong>Total</strong></b-td>
-                                 <b-td colspan="6"><strong>{{calculate}}</strong></b-td>
+                                
                            </b-tr>
                          </b-tbody>  
            </b-table-simple>
