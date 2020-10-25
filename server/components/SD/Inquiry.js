@@ -92,4 +92,5 @@ console.log('bug here');
         res.json(result)
     });
 })
+
 export  {router as Inquiry};

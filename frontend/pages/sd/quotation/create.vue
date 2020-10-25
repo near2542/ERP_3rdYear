@@ -5,7 +5,7 @@
  <b-alert class="noti" v-if="msg.status=='success'" variant="success" show>{{msg.message}}</b-alert>
     <b-alert class="noti" v-if="msg.status=='danger'" variant="danger" show>{{msg.message}}</b-alert> -->
     <h1 class="mt-4">Customer:{{requistion[0].CustomerName}} 
-    <p>Refer from #INV{{form.refID}}</p> 
+    <p>Refer from #INQ{{form.refID}}</p> 
     </h1>
    <b-table-simple hover caption-top bordered striped>
                        <caption>Material list </caption>
@@ -22,7 +22,7 @@
                            </b-tr>
                         </b-thead>
                         <b-tbody>
-                           <b-tr v-for="(requis,index) in requistion" :key="index">
+                           <b-tr v-for="(requis) in requistion" :key="requis.MaterialCode">
                                  <b-td colspan="3">{{requis.MaterialCode}}</b-td>
                                  <b-td colspan="3">{{requis.MaterialName}}</b-td>
                                  <b-td colspan="3">{{requis.price}}</b-td>
@@ -67,7 +67,7 @@
 
 <b-form-group
         id="input-group-1"
-        label="Requistion refered: "
+        label="Inquiry refered: "
         label-for="Material Description"
       >
         <b-form-input
@@ -79,22 +79,6 @@
         ></b-form-input>
       </b-form-group>
 
-<b-form-group
-        id="input-group-1"
-        label="Ship To: "
-        label-for="Material Description"
-      >
-        <b-form-input
-          id="input-1"
-          v-model="requistion[0].StorageName"
-          disabled
-          type="text"
-          placeholder="Reference ID"
-        ></b-form-input>
-      </b-form-group>
-
-
-        
       <!-------------------------------------------------------------------------->
 <b-form inline class="mb-4 godown" >
     <label  class="ml-3 mr-3 " for="datepicker-request-date" top>Select Request Date:</label>
@@ -132,7 +116,7 @@
 <script>
   export default {
       head:{
-          title:'Create Material'
+          title:'Quotation Create'
       },
     data() {
       return {
@@ -150,7 +134,7 @@
           },
      async onSubmit(evt) {
         evt.preventDefault()
-        const data = {...this.requistion[0],description:this.form.description}
+        const data = {...this.requistion[0],description:this.form.description,requestDate:this.form.requestDate,valid_to:this.form.validTo}
         console.log('imhere')
         await this.fetchPost(JSON.stringify(data),`/api/sd/quotation`)
 
@@ -204,7 +188,6 @@
     const discount = await $axios.$get(`api/sd/condition`)
 
     console.log(requistion)
-    console.log(discount)
         const msg = '';
         return {requistion,msg,discount};
     
@@ -212,14 +195,17 @@
   computed:{
       calculate:function()
       {
-          return this.requistion.reduce( (total,price)=> total+= (price.price*price.qty),0)
+          return this.requistion.reduce( (total,item)=> total+= (item.price*item.qty),0)
       },
       /* start here*/ 
       FilteredCondition:function()
       {
-          const incondition = [];
+        const incondition = [];
+        if(this.requistion.length > this.discount.length)
+        {
           for(let i=0;i<this.discount.length;i++)
           {
+            if(!this.requistion[i].price) break;
               for(let j=0;j<this.requistion.length;j++)
               {
                   if(this.requistion[j].idMaterial== this.discount[i].idMaterial)
@@ -229,12 +215,11 @@
                           {
                               idDiscount: this.discount[i].id,
                               description: this.discount[i].description,
-                              Total:    (this.discount[i].percentage*(this.requistion[i].price*this.requistion[i].qty))/100
+                              Total:    (this.discount[i].percentage* (this.requistion[i].price * this.requistion[i].qty))/100
                           }
                       )
                        break;
                   }
-                  
               }
           }
           if(this.requistion[0].isMember === 1) incondition.push({
@@ -248,7 +233,41 @@
                   Total : (this.calculate*10)/100,
               })
           }
-          this.discount = incondition;
+        }
+        /*-----------------------------------------------IF this requistion shorter than conidition ----------------------------*/
+        else{
+          for(let i=0;i<this.requistion.length;i++)
+          {
+              for(let j=0;j<this.discount.length;j++)
+              {
+                  if(this.requistion[i].idMaterial== this.discount[j].idMaterial)
+                  {
+                      if(this.requistion[i].qty >= this.discount[j].min)
+                      incondition.push(
+                          {
+                              idDiscount: this.discount[j].id,
+                              description: this.discount[j].description,
+                              Total:    (this.discount[j].percentage* (this.requistion[i].price * this.requistion[i].qty))/100
+                          }
+                      )
+                       break;
+                  }
+              }
+          }
+          if(this.requistion[0].isMember === 1) incondition.push({
+
+              description : '10% discount for members',
+              Total : (this.calculate*10)/100,
+          })
+          if(this.calculate > 10000) {
+              incondition.push({
+                  description : '10% discount for more than 10000',
+                  Total : (this.calculate*10)/100,
+              })
+          }
+          
+        }
+         this.discount = incondition;
           return incondition;
           
          /* end here*/ 

@@ -124,7 +124,7 @@
 <script>
   export default {
       head:{
-          title:'Create Material'
+          title:'Packing Create'
       },
     data() {
       return {
@@ -168,7 +168,7 @@
          await this.fetchPost(JSON.stringify(discount),`/api/sd/condition/detail`)
 */
          /////////INSERT INTO CONDITION ///////////
-        await this.$axios.$put(`/api/sd/sales/${this.form.refID}`,null,null)
+        await this.$axios.$put(`/api/sd/pack/${this.form.refID}`,null,null)
         /////////PUSH LEFT ID TO 
          console.log('imhere5')
         this.redirect(detailsID[0].idDoc)

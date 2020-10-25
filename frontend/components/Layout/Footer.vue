@@ -22,6 +22,7 @@
         align-content: center;
         padding-top:10px;
         color:white;
+        top: calc(100vh-50px);
         height:50px;
         width:100%;
     }

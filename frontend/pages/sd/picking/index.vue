@@ -20,29 +20,27 @@
                               <b-th colspan="3">ID</b-th>
                               <b-th colspan="3">Vendors Name</b-th>
                               <b-th colspan="4">Description</b-th>
-                              <b-th colspan="3">request_date </b-th>
-                              <b-th colspan="3">Valid To</b-th>
+                              <b-th colspan="3">Picked On </b-th>
+                     
                               <b-th colspan="4">Action</b-th>
                         </b-tr>
                      </b-thead>
                      <b-tbody>
-                        <b-tr v-for="(data,index) in filtered" :key="data.idDoc">
+                        <b-tr v-for="(data) in filtered" :key="data.idDoc">
                               <b-td colspan="3">{{data.idDoc}}</b-td>
                               <b-td colspan="3">{{data.CustomerName}}</b-td>
                               <b-td colspan="4">{{data.description}}</b-td>
                               <b-td colspan="3">{{data.request_date}}</b-td>
-                              <b-td colspan="3">{{data.ValidTo}}</b-td>
                               <b-td colspan="4">
                                 
                               <div v-if="data.Stat == 1">
-                            <nuxt-link :to="`/sd/packing/create?ref=${data.idDoc}&Order=${data.idRef}`">Make Sales Order</nuxt-link>
+                            <nuxt-link :to="`/sd/packing/create?ref=${data.idDoc}&Order=${data.idRef}`">Make Packing</nuxt-link>
                             <nuxt-link :to="`/sd/picking/${data.idDoc}`"><b-icon-eye-fill class="mr-2" variant="success"  scale="1.5"></b-icon-eye-fill></nuxt-link>
-                            <b-icon-trash-fill variant="danger" @click="showMsgBoxTwo(mats.idMaterial,index)" scale="1.5"></b-icon-trash-fill>
                             </div>
                             
                             <div v-else>
                               Refered
-                              <nuxt-link :to="`/sd/quotation/${data.idDoc}`"><b-icon-eye-fill class="mr-2" variant="success"  scale="1.5"></b-icon-eye-fill></nuxt-link>
+                              <nuxt-link :to="`/sd/picking/${data.idDoc}`"><b-icon-eye-fill class="mr-2" variant="success"  scale="1.5"></b-icon-eye-fill></nuxt-link>
                             </div>
                               </b-td>
                         </b-tr>
@@ -59,7 +57,7 @@
 
     export default {
         head:{
-            title:'Material list'
+            title:'Picking List'
         },
         data(){
             return{

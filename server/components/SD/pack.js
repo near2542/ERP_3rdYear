@@ -101,7 +101,7 @@ router.get('/get/lastid',async(req,res)=>
 router.put('/:id',async(req,res)=>
 {   const {id} =  req.params
 console.log(id);
-    DB.query(`UPDATE customer SET deleted = 1 WHERE idCustomer = ${id} ;`
+    DB.query(`UPDATE SDDoc SET Stat = 2 WHERE idDoc = ${id} ;`
             ,(err,result)=>
     {
         if(err) res.json({error:'error on adding'});

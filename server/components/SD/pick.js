@@ -20,11 +20,12 @@ router.get('/',async (req,res)=>
 router.get('/:id',async (req,res)=>
 {
     console.log('imhere')
-    DB.query(`SELECT  SDDoc.* , idMaterial , MaterialCode , MaterialName , MaterialDes ,Price ,weight ,qty, customer.*,SDType.Name,cusPO
+    DB.query(`SELECT  SDDoc.* , idMaterial , MaterialCode , MaterialName , MaterialDes ,Price ,weight ,qty, customer.*,SDType.Name,cusPO,idStorage
     from SDDoc left join SdDocDetails on SDDoc.idDoc = SdDocDetails.idDoc
    left join Material on idMaterial = matID
    left join customer on customer.idCustomer = SDDoc.idCustomer
    left join SDtype on Sdtype.type = SDDoc.type
+
    where SDDoc.idDoc = ${req.params.id} and SDDoc.Type = 4 ; `,(err,result)=>
     {
         if(err) console.log(err);
@@ -112,7 +113,7 @@ router.get('/get/storage',async(req,res)=>
 router.put('/:id',async(req,res)=>
 {   const {id} =  req.params
 console.log(id);
-    DB.query(`UPDATE customer SET deleted = 1 WHERE idCustomer = ${id} ;`
+    DB.query(`UPDATE SDDoc SET Stat = 2 WHERE idDoc = ${id} ;`
             ,(err,result)=>
     {
         if(err) res.json({error:'error on adding'});

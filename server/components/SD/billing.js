@@ -39,7 +39,7 @@ router.post('/',async (req,res)=>
     console.log(req.body);
     console.log('------------------------------this was in SDDoc Quotation------------------------------')
     DB.query(`INSERT INTO SDDoc values  
-    ('','${todaydate}','${request_date}','${description}','${idDiscount}',6,1,'${idDoc}',${customerPO},${idCustomer},${idStorage}) ;`
+    ('','${todaydate}','${request_date}','${description}','${idDiscount}',6,2,'${idDoc}',${customerPO},${idCustomer},${idStorage}) ;`
             ,(err,result)=>
     {
         if(err) console.log(err)
@@ -90,7 +90,7 @@ router.get('/get/lastid',async(req,res)=>
 router.put('/:id',async(req,res)=>
 {   const {id} =  req.params
 console.log(id);
-    DB.query(`UPDATE customer SET deleted = 1 WHERE idCustomer = ${id} ;`
+    DB.query(`UPDATE SDDoc SET Stat = 2 WHERE idDoc = ${id} ;`
             ,(err,result)=>
     {
         if(err) res.json({error:'error on adding'});

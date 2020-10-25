@@ -60,7 +60,7 @@
 <script>
   export default {
       head:{
-          title:'Create Material'
+          title:'Create Condition'
       },
     data() {
       return {

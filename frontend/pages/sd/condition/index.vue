@@ -58,7 +58,7 @@
 
     export default {
         head:{
-            title:'customers'
+            title:'Condition List'
         },
         data(){
             return{

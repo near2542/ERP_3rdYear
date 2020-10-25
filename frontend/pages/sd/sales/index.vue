@@ -26,7 +26,7 @@
                         </b-tr>
                      </b-thead>
                      <b-tbody>
-                        <b-tr v-for="(data,index) in filtered" :key="data.idDoc">
+                        <b-tr v-for="data in filtered" :key="data.idDoc">
                               <b-td colspan="3">{{data.idDoc}}</b-td>
                               <b-td colspan="3">{{data.CustomerName}}</b-td>
                               <b-td colspan="4">{{data.description}}</b-td>
@@ -41,7 +41,7 @@
                             
                             <div v-else>
                               Refered
-                              <nuxt-link :to="`/sd/quotation/${data.idDoc}`"><b-icon-eye-fill class="mr-2" variant="success"  scale="1.5"></b-icon-eye-fill></nuxt-link>
+                              <nuxt-link :to="`/sd/sales/${data.idDoc}`"><b-icon-eye-fill class="mr-2" variant="success"  scale="1.5"></b-icon-eye-fill></nuxt-link>
                             </div>
                               </b-td>
                         </b-tr>
@@ -58,7 +58,7 @@
 
     export default {
         head:{
-            title:'Material list'
+            title:'Sales List'
         },
         data(){
             return{

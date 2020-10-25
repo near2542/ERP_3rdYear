@@ -42,7 +42,7 @@
 
     export default {
         head:{
-            title:'Material list'
+            title:'Stock list'
         },
         data(){
             return{

@@ -50,10 +50,11 @@
       <b-form-input
           id="input-2"
           class="mr-4"
+          required
           v-model="form.Material[index].qty"
           type="number"
           step="any"
-          required
+          
           placeholder="Enter Qty"
         ></b-form-input>
 
@@ -82,7 +83,7 @@
 <script>
   export default {
       head:{
-          title:'Create Requistion'
+          title:'Create Inquiry'
       },
     data() {
       return {

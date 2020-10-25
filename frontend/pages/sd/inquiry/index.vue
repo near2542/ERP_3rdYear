@@ -39,7 +39,7 @@
                               <div v-if="data.Stat == 1">
                             <nuxt-link :to="`/sd/quotation/create?ref=${data.idDoc}`">Make Quotation</nuxt-link>
                             <nuxt-link :to="`/sd/inquiry/${data.idDoc}`"><b-icon-eye-fill class="mr-2" variant="success"  scale="1.5"></b-icon-eye-fill></nuxt-link>
-                            <b-icon-trash-fill variant="danger" @click="showMsgBoxTwo(mats.idMaterial,index)" scale="1.5"></b-icon-trash-fill>
+                            <b-icon-trash-fill variant="danger" @click="showMsgBoxTwo(data.idDoc,index)" scale="1.5"></b-icon-trash-fill>
                             </div>
                             
                             <div v-else>
@@ -61,7 +61,7 @@
 
     export default {
         head:{
-            title:'Material list'
+            title:'Inquiry List'
         },
         data(){
             return{
@@ -72,7 +72,7 @@
         methods:{
          async  Delete(confirm,id,index)
             {   if(!confirm) return
-                   await this.$axios.$put(`/api/sd/inquiry/${id}`,null , null);
+                   await this.$axios.$put(`/api/sd/inquiry/delete/${id}`,null , null);
                   this.Mats.splice(index,1)
                    this.msg = { status:"success", message:"Deleted Success"}
             },

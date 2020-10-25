@@ -6,7 +6,7 @@
         <ul>
            <li><nuxt-link to="/mm">Material Management</nuxt-link></li>
            <li><nuxt-link to="/sd">Sales & Distribution</nuxt-link></li>
-           <li><nuxt-link to="/admin">Admin</nuxt-link></li>
+           <li><nuxt-link v-show="false" to="/admin">Admin</nuxt-link></li>
            <li class="login" v-show="false"> <nuxt-link to="/home">Login</nuxt-link> </li>   
         </ul>
     </nav>

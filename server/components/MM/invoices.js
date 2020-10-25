@@ -21,7 +21,7 @@ router.get('/',async (req,res)=>
 router.get('/:id',async (req,res)=>
 {
     console.log('imhere')
-    DB.query(`SELECT  mmdocument.description,material.idMaterial,mmdocument.idDoc as idDoc,request_date,ValidTo,Vendors.* , MaterialCode 
+    DB.query(`SELECT  mmdocument.description,material.idMaterial,idRef,mmdocument.idDoc as idDoc,request_date,ValidTo,Vendors.* , MaterialCode 
     , MaterialName, documentdetails.price as price, qty , 
     Storage.idStorage ,StorageName , StorageStreet ,StoragePostalCode,StorageCity,StorageCountry,
     ORGname , ORGStreet , ORGCountry , ORGCity , ORGPostalCode

@@ -10,7 +10,6 @@
                                  <b-th colspan="3">Code</b-th>
                                  <b-th colspan="3">Name</b-th>
                                  <b-th colspan="3">UNIT</b-th>
-                                 <b-th colspan="3">Unit Price($)</b-th>
                                  <b-th colspan="3">QTY ORDERED </b-th>
                                  <b-th colspan="3">QTY RECEIVED</b-th>
                                  <b-th colspan="3">Backorder QTY</b-th>
@@ -21,7 +20,6 @@
                                  <b-td colspan="3">{{requis.MaterialCode}}</b-td>
                                  <b-td colspan="3">{{requis.MaterialName}}</b-td>
                                  <b-td colspan="3">EACH</b-td>
-                                 <b-td colspan="3">{{requis.price}}</b-td>
                                  <b-td colspan="3">{{requis.qty}}</b-td>
                                  <b-td colspan="3">{{requis.qty}}</b-td>
                                  <b-td colspan="3">{{requis.qty-requis.qty}}</b-td>

@@ -55,7 +55,7 @@
 
     export default {
         head:{
-            title:'customers'
+            title:'Customers'
         },
         data(){
             return{

@@ -1,6 +1,6 @@
 <template>
   <div class="middle">
-      <nuxt-link to="/mm/requistion"> <b-button variant="outline-primary">Go back to Purchase Requistionr List</b-button> </nuxt-link>
+      <nuxt-link to="/mm/requistion"> <b-button variant="outline-primary">Go back to Purchase Requistion List</b-button> </nuxt-link>
   <b-alert class="noti" v-if="msg.status=='success'" variant="success" show>{{msg.message}}</b-alert>
     <b-alert class="noti" v-if="msg.status=='danger'" variant="danger" show>{{msg.message}}</b-alert>
     <b-form @submit="onSubmit" @reset="onReset">
@@ -15,14 +15,14 @@
       <!-------------------------------------------------------------------------->
 <b-form-group
         id="input-group-1"
-        label="Material Description"
+        label="Description"
         label-for="Material Description"
       >
         <b-form-input
           id="input-1"
           v-model="form.description"
           type="text"
-          placeholder="Material Description "
+          placeholder="Description"
         ></b-form-input>
       </b-form-group>
 

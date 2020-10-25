@@ -18,6 +18,14 @@ router.get('/',async (req,res)=>
     });
 })
 
+router.get('/location',async(req,res)=>
+{
+    DB.query(`SELECT count(*) as location from storage`,(err,result)=>
+    {
+        if(err) console.log(err);
+        res.json(result)
+    });
+});
 
 router.post('/',async (req,res)=>
 {   

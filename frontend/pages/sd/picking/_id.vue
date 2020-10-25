@@ -1,25 +1,26 @@
 <template>
     <div class="middle">
-       <nuxt-link to="/sd/inquiry/"> <b-button variant="success">Go back to Inquiry List</b-button> </nuxt-link>
+       <nuxt-link to="/sd/picking/"> <b-button variant="success">Go back to Picking List</b-button> </nuxt-link>
        <div class="document">
-            <header>
-                
-                <div>Bill to:<h1>Euphoria Speed</h1>
-                <p>173/70 BanChanlor</p>
-                <p>Jarunsanitwong 22 Bangkoknoi</p>
-                <p>Bangkok 10700</p>
-
+             <header>
+                <div><img src="/logo.jpg"/>
+                <p>euphoriaspeed@gmail.com</p>
+                <p>239 Suthep, Muang Chiang Mai</p>
+                <p>Thailand 50200</p>
+                <p>Tel : +99 999 9999</p>
+                <p>euphoriaspeed@gmail.com</p>
                 </div>
-                <div><h3>Picking<br>PICK#{{data[0].idDoc}}</h3></div>
+                <div class="header"><h3>{{data[0].Name}}<br>PICK#{{data[0].idDoc}}</h3></div>
             </header>
+           
            
                 <!--------------- ------------->
             <div class="address">
                 
                     <div>
-                            ship to:
-                        <div><h1>{{data[0].CustomerName}}</h1></div>
-                        <div>CusID: {{data[0].idCustomer}}</div>
+                           <strong> Ship To: </strong>
+                        <div>{{data[0].CustomerName}}</div>
+  
                         <div>{{data[0].CustomerStreet}} {{data[0].CustomerPostalCode}}</div>
                         <div>{{data[0].CustomerCountry}}</div>
                         <div>{{data[0].CustomerCity}}</div>
@@ -27,10 +28,18 @@
                     <div>
 <div class="description">Note:  {{data[0].description}}</div>
                     </div>
-                </div>
+            <div>
+                    <strong>Bill To:</strong>
+                    <div>{{data[0].CustomerName}}</div>
+                   
+                        <div>{{data[0].CustomerStreet}} {{data[0].CustomerPostalCode}}</div>
+                        <div>{{data[0].CustomerCountry}}</div>
+                        <div>{{data[0].CustomerCity}}</div>
+                    </div>
+            </div>
 
 
-                <table class="product"> 
+                <table class="product" style="margin-top:50px"> 
                     <tr>
                         <th>Order#</th>
                         <th>Customer PO</th>
@@ -41,9 +50,9 @@
                         <th>TERMS</th>
                     </tr>
                     <tr>
-                        <td>{{data[0].idRef}}</td>
+                        <td>{{data[0].idDoc}}</td>
                         <td>{{data[0].CusPO}}</td>
-                          <td>{{data[0].request_date}}</td>
+                        <td>{{data[0].request_date}}</td>
                         <td>{{data[0].valid_to}}</td>
                         <td>Ground</td>
                         <td>F.O.B. POINT</td>
@@ -52,59 +61,34 @@
                 </table>
                 <!--------------- ------------->
              <div class="content">
-               <table class="product">
-                   <tr><th colspan="15">Material</th></tr>
-                     <tr>
-                     <th colspan="3">Code</th>
-                     <th colspan="3">Name</th>
-                     <th colspan="3">Price</th>
-                     <th colspan="3">Qty</th>
-                     <th colspan="3">Total</th>
-                    </tr>
-                     <tr v-for="datas in data" :key="datas.materialID">
-                        <td colspan="3">{{datas.MaterialCode}}</td>
-                        <td colspan="3">{{datas.MaterialName}}</td>
-                        <td colspan="3">{{datas.Price}}</td>
-                        <td colspan="3">{{datas.qty}}</td>
-                        <td colspan="3">{{datas.qty*datas.Price}}</td>
-                    </tr>
-                     <tr >
-                        <td class="total" colspan="12">Price Total</td>
-                        <td colspan="3">{{calculate}}</td>
-                    </tr>
+
+                <table class="product" style="margin-bottom:100px"> 
                     <tr>
-                     <th colspan="15">Discount</th>             
-                    </tr>
-                     <tr v-for="datas in discount" :key="datas.materialID">
-                        <td colspan="12">{{datas.description}}</td>
-                        <td colspan="3">{{datas.Total}}</td>
-                    </tr>
-                     <tr >
-                        <td class="total" colspan="12">Discount Total</td>
-                               <td colspan="3">{{calculatediscount}}</td>
-                    </tr>
-                    <tr>
-                        <td class="total" colspan="12">Tax</td>
-                        <td colspan="3"><strong>Exempt</strong></td>
-                    </tr>
-                    <tr>
-                        <td class="total" colspan="12">Shipping</td>
-                        <td colspan="3"><strong>Included</strong></td>
-                    </tr>
+                            <th>Product Number</th>
+                        <th>Quantity Ordered#</th>
+                        <th>Quantity Shipped</th>
+                        <th colspan="3">Description</th>
+                        <th colspan="3">Storage</th>
                     
-                       <tr>
-                           
-                        <td class="total" colspan="12">Final amount</td>
-                        <td colspan="3">{{calculate-calculatediscount}}</td>
-                        
                     </tr>
-                </table> 
+                    <tr v-for="datas in data" :key="datas.MaterialCode">
+                            <td>{{datas.MaterialCode}}</td>
+                        <td>{{datas.qty}}</td>
+                        <td >{{datas.qty}}</td>
+
+                        <td colspan="3"></td>
+                        <td colspan="3">{{datas.idStorage}}</td>
+                    
+                    </tr>
+                   
+                </table>
+
             </div>
              
        </div>
 
    </div>
-    
+  
 </template>
 
 
@@ -112,7 +96,7 @@
 
     export default {
         head:{
-            title:`Purchase Requistion`
+            title:`Picking Details`
         },
      async asyncData({$axios,params})
   {
@@ -144,15 +128,18 @@
 </script>
 
 <style lang="css">
-    .middle {
+      .middle {
         width:90%;
         margin : 50px auto;
     }
-
+    img{
+        width:400px;
+        height:250px;
+    }
     .document{
         margin:50px auto;
-        width:800;
-        height:1200px;
+        width:800px;
+        min-height:1200px;
         background-color:white;
         border:1px solid;
    
@@ -161,16 +148,19 @@
         display:grid;
         grid-template-columns:50% 50%;
         grid-gap:40px;
-        margin-top :50px;
         padding-left:20px;
+    }
+    .header{
+        margin-top:75px;
     }
     .address{
         display:grid;
-        grid-template-columns:33% 67%;
+        grid-template-columns:30% 30% 30%;
         grid-gap:20px;
         padding-top:20px;
         padding-left:20px;
-        height:150px;
+        height:200px;
+        margin-bottom:0 10px 150px 10px;
     }
     .date{
         display:flex;
@@ -183,11 +173,11 @@
     .content{
         width:80%;
         min-height:300;
-        
-        margin:60px auto;
+        margin:125px auto 125px auto;
         display:flex;
         justify-content:center;
         align-content:center;
+
     }
     .address,.content,.date,.description{
         border:4px solid collapse;
@@ -206,6 +196,18 @@ table, th, td {
 }
 th,td{
     width:100px;
+    height:50px;
+}
+.Total{
+    font-weight:bold;
+    text-align:right;
+    padding-right: 10px;
+    font-size:1.2rem;
+}
+.Total-price{
+        font-weight:bold;
+    text-align:left;
+    font-size:1.2rem;
 }
 .description{
     width:80%;
@@ -213,13 +215,15 @@ th,td{
     display:flex;
     flex-direction:column;
 }
-table{
-    margin-bottom:20px;
+.Address-Heading{
+    font-weight:bold;
+    font-size:1.2rem;
 }
-.total{
-    text-align:right;
-    padding-right: 20px;
-    font-weight: bold;
+.descriptiontext{
+    margin-left:80px;
 }
+
+
+
 
 </style>

@@ -16,6 +16,17 @@ router.get('/',async (req,res)=>
     });
 })
 
+router.get('/lastid',async(req,res)=>
+{
+    DB.query(`select idMaterial as id from Material
+            order by idMaterial desc limit 1`,(err,result)=>
+            {
+                if(err) console.log(err)
+                console.log('initialize material to stock success')
+                res.json(result);
+            })
+        
+})
 
 router.post('/',async (req,res)=>
 {   

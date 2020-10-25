@@ -5,7 +5,7 @@
  <b-alert class="noti" v-if="msg.status=='success'" variant="success" show>{{msg.message}}</b-alert>
     <b-alert class="noti" v-if="msg.status=='danger'" variant="danger" show>{{msg.message}}</b-alert> -->
 <h1 class="mt-4">Customer:{{data[0].CustomerName}} 
-    <p>Refer from Invoices#{{data[0].Name}}{{form.refID}}</p> 
+    <p>Refer Packing# {{form.refID}}</p> 
     </h1>
  <b-table-simple hover caption-top bordered striped>
                        <caption>Material list </caption>
@@ -112,7 +112,7 @@
 <script>
   export default {
       head:{
-          title:'Create Material'
+          title:'Create Billing'
       },
     data() {
       return {
@@ -156,6 +156,7 @@
         console.log(detail)
             await this.fetchPost(JSON.stringify(detail),`/api/mm/stock/sold`)
             console.log(detailsID[0].idDOc + 'fukkkk')
+             await this.fetchPost(JSON.stringify(detail),`/api/mm/stock/deduct`)
         this.redirect(detailsID[0].idDoc)
       },
       

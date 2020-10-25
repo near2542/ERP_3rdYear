@@ -44,7 +44,7 @@
         ></b-form-input>
       </b-form-group>
 <!-------------------------------------------------------------------------->
- <b-form-group id="input-group-2" label="Weight:" label-for="input-2">
+ <b-form-group id="input-group-2" label="Weight (KG):" label-for="input-2">
         <b-form-input
           id="input-2"
           v-model="form.weight"
@@ -105,20 +105,27 @@
           console.log('im here')
           
         
+        
       },
       async fetchPost(data){
           try{
-          
             console.log('im here')
           await this.$axios.$post(`/api/mm/material`, data, {
             headers: {
             'Content-Type': 'application/json'
             }});
+
+          const location = await this.$axios.$get(`/api/admin/storage/location`)
+          const GetIDMat = await this.$axios.$get(`/api/mm/material/lastid`)
+          const IDmat = GetIDMat[0].id
+          const numberLocation = location[0].location;
+          await this.$axios.$post(`/api/mm/stock/initial/${IDmat}/${numberLocation}`)
             this.msg = {status:"success",
                          message:"Material has been added to list" ,
                         }
             this.form.code=''
           this.form.name= ''
+          this.form.weight = ''
           this.form.description = ''
           this.form.price=''
                         }
@@ -126,8 +133,7 @@
              this.msg = {status:"danger",
                          message:"something went wrong" ,
                         }
-         }
-         
+               }
                     },
       onReset(evt) {
         evt.preventDefault()
@@ -135,6 +141,7 @@
         this.form.code=''
         this.form.name= ''
         this.form.description = ''
+        this.form.weight = ''
         this.form.price=''
       }
     }

@@ -81,7 +81,6 @@ router.post('/detail',async(req,res)=>
       sql += `,(${Discount},'${DisDetails[i].description}','${DisDetails[i].Total}')`
     }
     sql += ';'
-    console.log(sql);
     DB.query(`${sql}`
             ,(err,result)=>
     {

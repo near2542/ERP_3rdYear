@@ -26,7 +26,7 @@
                         </b-tr>
                      </b-thead>
                      <b-tbody>
-                        <b-tr v-for="(data,index) in filtered" :key="data.idDoc">
+                        <b-tr v-for="(data) in filtered" :key="data.idDoc">
                               <b-td colspan="3">{{data.idDoc}}</b-td>
                               <b-td colspan="3">{{data.CustomerName}}</b-td>
                               <b-td colspan="4">{{data.description}}</b-td>
@@ -35,14 +35,12 @@
                               <b-td colspan="4">
                                 
                               <div v-if="data.Stat == 1">
-                            <nuxt-link :to="`/sd/billing/create?ref=${data.idDoc}&Order=${data.idRef}`">Make Sales Order</nuxt-link>
-                            <nuxt-link :to="`/sd/picking/${data.idDoc}`"><b-icon-eye-fill class="mr-2" variant="success"  scale="1.5"></b-icon-eye-fill></nuxt-link>
-                            <b-icon-trash-fill variant="danger" @click="showMsgBoxTwo(mats.idMaterial,index)" scale="1.5"></b-icon-trash-fill>
+                            <nuxt-link :to="`/sd/billing/${data.idDoc}`"><b-icon-eye-fill class="mr-2" variant="success"  scale="1.5"></b-icon-eye-fill></nuxt-link>
                             </div>
                             
                             <div v-else>
                               Refered
-                              <nuxt-link :to="`/sd/quotation/${data.idDoc}`"><b-icon-eye-fill class="mr-2" variant="success"  scale="1.5"></b-icon-eye-fill></nuxt-link>
+                              <nuxt-link :to="`/sd/billing/${data.idDoc}`"><b-icon-eye-fill class="mr-2" variant="success"  scale="1.5"></b-icon-eye-fill></nuxt-link>
                             </div>
                               </b-td>
                         </b-tr>
@@ -59,7 +57,7 @@
 
     export default {
         head:{
-            title:'Material list'
+            title:'Billing List'
         },
         data(){
             return{
@@ -84,7 +82,7 @@
         /* Fetch Data Before loaded*/
      async asyncData({$axios})
   {
-    const data = await $axios.$get('/api/sd/pack')
+    const data = await $axios.$get('/api/sd/billing')
     console.log(data)
    const datas = data.map((inq) =>
     {

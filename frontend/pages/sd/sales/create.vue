@@ -1,6 +1,6 @@
 <template>
   <div class="middle">
-      <nuxt-link to="/mm/requistion"> <b-button variant="outline-primary">Go back to Requistion</b-button> </nuxt-link>
+      <nuxt-link to="/sd/quotation"> <b-button variant="outline-primary">Go back to Requistion</b-button> </nuxt-link>
       <!--
  <b-alert class="noti" v-if="msg.status=='success'" variant="success" show>{{msg.message}}</b-alert>
     <b-alert class="noti" v-if="msg.status=='danger'" variant="danger" show>{{msg.message}}</b-alert> -->
@@ -25,9 +25,9 @@
                            <b-tr v-for="(requis,index) in requistion" :key="index">
                                  <b-td colspan="3">{{requis.MaterialCode}}</b-td>
                                  <b-td colspan="3">{{requis.MaterialName}}</b-td>
-                                 <b-td colspan="3">{{requis.price}}</b-td>
+                                 <b-td colspan="3">{{requis.Price}}</b-td>
                                  <b-td colspan="3">{{requis.qty}}</b-td>
-                                 <b-td colspan="3">{{requis.qty*requis.price}}</b-td>
+                                 <b-td colspan="3">{{requis.qty*requis.Price}}</b-td>
                            </b-tr>
                             <b-tr>
                                  <b-td colspan="12" style="text-align:right"><strong>Total</strong></b-td>
@@ -42,22 +42,21 @@
                                  <b-th colspan="3">Discount Total</b-th>
                              
                         </b-tr>
-                        <b-tr  v-for="dis in FilteredCondition" :key="dis.materialID">
+                        <b-tr  v-for="dis in discount" :key="dis.materialID">
                                  <b-th colspan="3">{{dis.idDiscount}}</b-th>
                                  <b-th colspan="9">{{dis.description}}</b-th>
                                  <b-th colspan="3">{{dis.Total}}</b-th>
-                             
                         </b-tr>
                          <b-tr bg-dark>
                                  <b-th colspan="12" style="text-align:right">Discount Total</b-th>
-                                 <b-th colspan="3">{{FilteredCondition.reduce((total,discount)=> (total+discount.Total),0)}}</b-th>
+                                 <b-th colspan="3">{{calculateDiscount}}</b-th>
         
                              
                         </b-tr>
 
                            <b-tr>
                                  <b-td colspan="12" style="text-align:right"><strong>Net Total</strong></b-td>
-                                 <b-td colspan="3" variant="primary"><strong>{{Total}}</strong></b-td>
+                                 <b-td colspan="3" variant="primary"><strong>{{calculate-calculateDiscount}}</strong></b-td>
                            </b-tr>
                            
                          </b-tbody>  
@@ -134,7 +133,7 @@
 <script>
   export default {
       head:{
-          title:'Create Material'
+          title:'Sales Create'
       },
     data() {
       return {
@@ -203,8 +202,8 @@
      async asyncData({$axios,params,query})
   {
 
-    const requistion = await $axios.$get(`/api/sd/inquiry/${query.ref}`)
-    const discount = await $axios.$get(`api/sd/condition`)
+    const requistion = await $axios.$get(`/api/sd/quotation/${query.ref}`)
+    const discount = await $axios.$get(`api/sd/condition/${requistion[0].idDiscount}`)
 
     console.log(requistion)
     console.log(discount)
@@ -215,10 +214,14 @@
   computed:{
       calculate:function()
       {
-          return this.requistion.reduce( (total,price)=> total+= (price.price*price.qty),0)
+          return this.requistion.reduce( (total,price)=> total+= (price.Price*price.qty),0)
       },
+      calculateDiscount:function()
+      {
+        return this.discount.reduce((total,disc)=> disc.Total+=total,0)
+      }
       /* start here*/ 
-      FilteredCondition:function()
+      /*FilteredCondition:function()
       {
           const incondition = [];
           for(let i=0;i<this.discount.length;i++)
@@ -253,16 +256,11 @@
           }
           this.discount = incondition;
           return incondition;
-          
+          */
          /* end here*/ 
       },
-      Total:function()
-      {
-         return this.calculate- this.FilteredCondition.reduce((total,discount) => (discount.Total),0)
-      }
-
   }
-  }
+  
 </script>
 
 <style lang="css" >

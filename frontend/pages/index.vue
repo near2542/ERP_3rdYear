@@ -1,12 +1,16 @@
 <template>
   <div class="container">
     <b-container fluid="sm">
-        <b-row>
-          <b-col  xl="4" md="6"  class="mt-3 mb-4" v-for="link in links" :key="link.link">
-              <nuxt-link :to="link.link">
-                <Menu :menuname="link.menuname"/>
-              </nuxt-link> 
+        <b-row class="mt-3">
+          <b-col lg-6>
+             <img src="/logo.jpg" >
           </b-col>
+          <b-col class="text" lg-6>
+            <h1>Welcome to</h1>
+              <h2>Europhia Speed ERP system</h2>
+                <h3>Click on the menu to proceed</h3>
+          </b-col>
+          
         </b-row>
     </b-container>
 </div>
@@ -48,4 +52,11 @@ export default {
         color:white;
         background-color:rgb(101, 163, 61);
     }
+img{
+  width:600px;
+  height:600px;
+}
+.text{
+  margin:auto auto;
+}
 </style>

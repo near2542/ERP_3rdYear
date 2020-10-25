@@ -26,7 +26,7 @@
                         </b-tr>
                      </b-thead>
                      <b-tbody>
-                        <b-tr v-for="(data,index) in filtered" :key="data.idDoc">
+                        <b-tr v-for="(data) in filtered" :key="data.idDoc">
                               <b-td colspan="3">{{data.idDoc}}</b-td>
                               <b-td colspan="3">{{data.CustomerName}}</b-td>
                               <b-td colspan="4">{{data.description}}</b-td>
@@ -37,7 +37,7 @@
                               <div v-if="data.Stat == 1">
                             <nuxt-link :to="`/sd/sales/create?ref=${data.idDoc}`">Make Sales Order</nuxt-link>
                             <nuxt-link :to="`/sd/quotation/${data.idDoc}`"><b-icon-eye-fill class="mr-2" variant="success"  scale="1.5"></b-icon-eye-fill></nuxt-link>
-                            <b-icon-trash-fill variant="danger" @click="showMsgBoxTwo(mats.idMaterial,index)" scale="1.5"></b-icon-trash-fill>
+    
                             </div>
                             
                             <div v-else>
@@ -59,7 +59,7 @@
 
     export default {
         head:{
-            title:'Material list'
+            title:'Quotation List'
         },
         data(){
             return{

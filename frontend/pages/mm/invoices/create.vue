@@ -110,7 +110,6 @@
         await this.fetchPost(JSON.stringify(detail),`/api/mm/invoices/detail`)
         console.log(this.form.refID)
         await this.$axios.$put(`/api/mm/goodreceipt/${this.form.refID}`,null,null)
-        await this.fetchPost(JSON.stringify(detail),`/api/mm/stock/detail`)
         this.redirect(refID[0].idDoc)
          }
          catch(err)

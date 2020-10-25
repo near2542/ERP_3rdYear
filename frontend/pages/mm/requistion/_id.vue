@@ -1,27 +1,41 @@
 <template>
     <div class="middle">
        <nuxt-link to="/mm/requistion/"> <b-button variant="success">Go back to Purchase Requistion List</b-button> </nuxt-link>
-       <div class="document">
+      <div class="document">
             <header>
-                <div><h1>Euphoria Speed</h1></div>
-                <div><h3>Purchase Requistion<br>PR#{{requistion[0].idDoc}}</h3></div>
+                <div class="logo-container">
+               <img class="logo" src="/logo.jpg"/>
+               </div>
+                <div class="header">
+                    <h3>Purchase Requistion<br>PR#{{requistion[0].idDoc}}</h3>
+                </div>
             </header>
            
+           
             <div class="date">
-                <p><strong>request_date: </strong>{{requistion[0].request_date}}</p>
-                <p><strong>valid to: </strong> {{requistion[0].ValidTo}}</p>
+            <p><strong>Requested Date: </strong>{{requistion[0].request_date}}</p>
+            <p><strong>Valid To Date: </strong>{{requistion[0].ValidTo}}</p>
                 </div>
                 <!--------------- ------------->
             <div class="address">
                 
-                    <div>Vendors Address
-                        <div>{{requistion[0].VendorsName}}</div>
-                        <div>{{requistion[0].VendorsStreet}} {{requistion[0].VendorPostalCode}}</div>
+                    <div>
+                        <div class="Address-Heading">Vendors Address</div>
+                        <div >{{requistion[0].VendorsName}}</div>
+                        <div>{{requistion[0].VendorsStreet}} {{requistion[0].VendorsCity}}</div>
                         <div>{{requistion[0].VendorsCountry}}</div>
                         <div>{{requistion[0].VendorsPostalCode}}</div>
                     </div>
 
-                    <div>Ship To:
+                    <div>
+                    <div class="Address-Heading">Ship To:</div>
+                    <div>{{requistion[0].StorageName}}</div>
+                    <div> {{requistion[0].StorageStreet}}  {{requistion[0].StorageCity}}</div>
+                    <div>{{requistion[0].StorageCountry}}</div>
+                    <div>{{requistion[0].StoragePostal}}</div>
+                </div>
+                <div>
+                    <div class="Address-Heading">Bill To:</div>
                     <div>{{requistion[0].ORGname}}</div>
                     <div> {{requistion[0].ORGStreet}}  {{requistion[0].ORGPostalCode}}</div>
                     <div>{{requistion[0].ORGCountry}}</div>
@@ -29,7 +43,9 @@
                 </div>
                 </div>
                 <!--------------- ------------->
-             <div class="content">
+        
+                <div class="content">
+                
                <table class="product">
                      <tr>
                      <th colspan="3">Code</th>
@@ -46,14 +62,14 @@
                      <td colspan="3">{{requis.qty*requis.price}}</td>
                     </tr>
                     <tr>
-                        <td colspan="10">Total</td>
-                        <td colspan="10">{{calculate}}</td>
+                        <td colspan="12" class="Total" >Total</td>
+                        <td colspan="3" class="Total-price">{{calculate}}</td>
                     </tr>
                      </table>
                      
                     
                 </div>
-             <div class="description">{{requistion[0].description}}</div>
+             <div class="description"><strong>Description:</strong> <p class="descriptiontext">{{requistion[0].description}}</p></div>
        </div>
      </div>
 
@@ -91,15 +107,18 @@
 </script>
 
 <style lang="css">
-    .middle {
+  .middle {
         width:90%;
         margin : 50px auto;
     }
-
+    img{
+        width:400px;
+        height:250px;
+    }
     .document{
         margin:50px auto;
         width:800px;
-        height:800px;
+        height:1200px;
         background-color:white;
         border:1px solid;
    
@@ -108,16 +127,19 @@
         display:grid;
         grid-template-columns:50% 50%;
         grid-gap:40px;
-        margin-top :50px;
         padding-left:20px;
+    }
+    .header{
+        margin-top:75px;
     }
     .address{
         display:grid;
-        grid-template-columns:33% 33% 33%;
+        grid-template-columns:30% 30% 30%;
         grid-gap:20px;
         padding-top:20px;
         padding-left:20px;
-        height:150px;
+        height:200px;
+        margin-bottom:0 10px 25px 10px;
     }
     .date{
         display:flex;
@@ -130,10 +152,11 @@
     .content{
         width:80%;
         min-height:300;
-        margin:0 auto;
+        margin:0 auto 125px auto;
         display:flex;
         justify-content:center;
         align-content:center;
+
     }
     .address,.content,.date,.description{
         border:4px solid collapse;
@@ -151,13 +174,32 @@ table, th, td {
   border: 1px solid black;
 }
 th,td{
-    width:100px;
+    width:200px;
+    height:50px;
+}
+.Total{
+    font-weight:bold;
+    text-align:right;
+    padding-right: 10px;
+    font-size:1.2rem;
+}
+.Total-price{
+        font-weight:bold;
+    text-align:left;
+    font-size:1.2rem;
 }
 .description{
     width:80%;
     margin:40px auto;
     display:flex;
     flex-direction:column;
+}
+.Address-Heading{
+    font-weight:bold;
+    font-size:1.2rem;
+}
+.descriptiontext{
+    margin-left:80px;
 }
 
 </style>

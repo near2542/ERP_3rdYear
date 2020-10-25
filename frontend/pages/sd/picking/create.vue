@@ -1,6 +1,6 @@
 <template>
   <div class="middle">
-      <nuxt-link to="/mm/requistion"> <b-button variant="outline-primary">Go back to Requistion</b-button> </nuxt-link>
+      <nuxt-link to="/sd/sales"> <b-button variant="outline-primary">Go back to Sales Order</b-button> </nuxt-link>
       <!--
  <b-alert class="noti" v-if="msg.status=='success'" variant="success" show>{{msg.message}}</b-alert>
     <b-alert class="noti" v-if="msg.status=='danger'" variant="danger" show>{{msg.message}}</b-alert> -->
@@ -115,7 +115,7 @@
 <script>
   export default {
       head:{
-          title:'Create Material'
+          title:'Create Picking'
       },
     data() {
       return {
@@ -140,7 +140,6 @@
         //////////INSERT in SDDoc/////////
         console.log('imhere2')
         const detailsID = await this.$axios.$get(`/api/sd/pick/get/lastid`)
-        console.log(detailsID)
         /////////GET SDDOC LAST ID////////////
          console.log('imhere3');
         const detail = {Material: this.requistion,
@@ -157,6 +156,7 @@
          console.log('imhere5')
         console.log(detail)
             await this.fetchPost(JSON.stringify(detail),`/api/mm/stock/ondelivery`)
+            await this.$axios.$put(`/api/sd/sales/${this.form.refID}`,null,null)
         this.redirect(detailsID[0].idDoc)
       },
       
@@ -205,47 +205,7 @@
       {
           return this.requistion.reduce( (total,qty)=> total+= qty.qty,0)
       },
-      /* start here*/ 
-     /*FilteredCondition:function()
-      {
-          const incondition = [];
-          for(let i=0;i<this.discount.length;i++)
-          {
-              for(let j=0;j<this.requistion.length;j++)
-              {
-                  if(this.requistion[j].idMaterial== this.discount[i].idMaterial)
-                  {
-                      if(this.requistion[j].qty >= this.discount[i].min)
-                      incondition.push(
-                          {
-                              idDiscount: this.discount[i].id,
-                              description: this.discount[i].description,
-                              Total:    (this.discount[i].percentage*(this.requistion[i].price*this.requistion[i].qty))/100
-                          }
-                      )
-                       break;
-                  }
-                  
-              }
-          }
-          if(this.requistion[0].isMember === 1) incondition.push({
-
-              description : '10% discount for members',
-              Total : (this.calculate*10)/100,
-          })
-          if(this.calculate > 10000) {
-              incondition.push({
-                  description : '10% discount for more than 10000',
-                  Total : (this.calculate*10)/100,
-              })
-          }
-          this.discount = incondition;
-          return incondition;
-          
-         /* end here
-      },
-        */
-      
+  
      StorageFiltering:function()
       {
           const AvailableStorage = [];
@@ -259,6 +219,7 @@
                    })
                    )
                  }
+                console.log(EachStorageStock)
         for(let i=0;i<EachStorageStock.length;i++)
         {
           let status=false;
@@ -267,7 +228,7 @@
             if(EachStorageStock[i][j].qty >= this.need[j].qty && EachStorageStock[i][j].matID == this.need[j].idMaterial){
               status = true
             }
-            else status = false
+            else break;
           }
      if(status == true) AvailableStorage.push({
        value : this.storage[i].idStorage , text:this.storage[i].StorageName
