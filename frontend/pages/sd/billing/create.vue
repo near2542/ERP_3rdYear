@@ -1,6 +1,6 @@
 <template>
   <div class="middle">
-      <nuxt-link to="/mm/requistion"> <b-button variant="outline-primary">Go back to Requistion</b-button> </nuxt-link>
+      <nuxt-link to="/sd/packing"> <b-button variant="outline-primary">Go back to Packing</b-button> </nuxt-link>
       <!--
  <b-alert class="noti" v-if="msg.status=='success'" variant="success" show>{{msg.message}}</b-alert>
     <b-alert class="noti" v-if="msg.status=='danger'" variant="danger" show>{{msg.message}}</b-alert> -->
@@ -148,15 +148,13 @@
        console.log(detail)
         await this.fetchPost(JSON.stringify(detail),`/api/sd/billing/detail`)
    
-        
-         /////////INSERT INTO CONDITION ///////////
-      // await this.$axios.$put(`/api/sd/sales/${this.form.refID}`,null,null)
-        /////////PUSH LEFT ID TO 
+     
          console.log('imhere5')
         console.log(detail)
             await this.fetchPost(JSON.stringify(detail),`/api/mm/stock/sold`)
             console.log(detailsID[0].idDOc + 'fukkkk')
              await this.fetchPost(JSON.stringify(detail),`/api/mm/stock/deduct`)
+              await this.$axios.$put(`/api/sd/billing/${this.form.refID}`,null,null)
         this.redirect(detailsID[0].idDoc)
       },
       

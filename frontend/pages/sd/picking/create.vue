@@ -220,23 +220,48 @@
                    )
                  }
                 console.log(EachStorageStock)
+             
+              /*
         for(let i=0;i<EachStorageStock.length;i++)
         {
-          let status=false;
-          for(let j=0;j<this.need.length ; j++)
+          let status=0;
+          for(let j=0;j<this.need.length; j++)
           {
             if(EachStorageStock[i][j].qty >= this.need[j].qty && EachStorageStock[i][j].matID == this.need[j].idMaterial){
-              status = true
+              status +=1;
             }
-            else break;
           }
-     if(status == true) AvailableStorage.push({
+          console.log(status)
+       if(status == this.need.length) AvailableStorage.push({
        value : this.storage[i].idStorage , text:this.storage[i].StorageName
      })
         }
-        return AvailableStorage;
-          //const filterItem =  ;
-      },
+        */
+         for(let i=0;i<EachStorageStock.length;i++)
+        {
+          let status=0;
+
+          for(let j=0;j<this.need.length; j++)
+          { 
+            for(let k=0;k<EachStorageStock[0].length;k++){
+
+            if(EachStorageStock[i][k].qty >= this.need[j].qty && EachStorageStock[i][k].idMaterial === this.need[j].matID)
+            {
+              console.log(`im here at ${i} ${k} ${j}`)
+              status +=1;
+             
+            }
+      }
+      console.log(status)
+            if(status == this.need.length) AvailableStorage.push({
+             value : this.storage[i].idStorage , text:this.storage[i].StorageName
+              })
+          
+       
+        }        //const filterItem =  ;
+}
+ return AvailableStorage;
+ },
 
       Total:function()
       {

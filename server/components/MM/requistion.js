@@ -80,7 +80,7 @@ router.post('/detail',async(req,res)=>
             ,(err,result)=>
     {
         if(err) console.log(err);
-        res.send('ok')
+        res.json(result)
     });
 })
 

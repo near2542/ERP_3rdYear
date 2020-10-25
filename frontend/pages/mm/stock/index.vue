@@ -23,12 +23,16 @@
                         </b-tr>
                      </b-thead>
                      <b-tbody>
+                         <b-tr v-for="datas in data.idStorage" :key="datas.idStorage">
+                             {{datas}} eqeqeqeqeq
+                         </b-tr>
                         <b-tr v-for="(datas,index) in filtered" :key="index">
                               <b-td colspan="3">{{datas.StorageName}}</b-td>
                               <b-td colspan="3">{{datas.MaterialCode}}</b-td>
                               <b-td colspan="4">{{datas.MaterialName}}</b-td>
                               <b-td colspan="3">{{datas.qty}}</b-td>
                         </b-tr>
+                        
                       </b-tbody>  
         </b-table-simple>
         </div>

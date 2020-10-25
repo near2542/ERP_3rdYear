@@ -23,6 +23,7 @@
                               <b-th colspan="3">Address</b-th>
                               <b-th colspan="3">Contact</b-th>
                               <b-th colspan="1">Created at</b-th>
+                              <b-th colspan="1">Is Member</b-th>
                               <b-th colspan="4">Action</b-th>
                         </b-tr>
                      </b-thead>
@@ -38,6 +39,7 @@
                                   <p>{{customer.Tel}}</p>
                                   </b-td>
                               <b-td colspan="1">{{customer.Date_added}}</b-td>
+                              <b-td colspan="1">{{customer.isMember? 'YES' : 'NO'}}</b-td>
                               <b-td colspan="4">
                                 <b-icon-trash-fill variant="danger" @click="showMsgBoxTwo(customer.idCustomer,index)" scale="1.5"></b-icon-trash-fill>
                               </b-td>

@@ -95,7 +95,7 @@ console.log(id);
     {
         if(err) res.json({error:'error on adding'});
         console.log('update Customer success');
-        res.send('success');
+        res.json(result);
     });
 })
 
