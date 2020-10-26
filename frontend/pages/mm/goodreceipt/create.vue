@@ -106,6 +106,7 @@
          try{
         evt.preventDefault()
         const data = { ...this.form ,vendorsID:this.requistion[0].idVendors,idStorage:this.requistion[0].idStorage}
+        console.log(data);
         console.log('here')
         await this.fetchPost(JSON.stringify(data),`/api/mm/goodreceipt`)
         console.log('data' + data)
@@ -149,7 +150,7 @@
      async asyncData({$axios,params,query})
   {
 
-    const requistion = await $axios.$get(`/api/mm/requistion/${query.ref}`)
+    const requistion = await $axios.$get(`/api/mm/purchase/${query.ref}`)
         const msg = '';
         console.log(requistion)
         return {requistion,msg};

@@ -21,13 +21,12 @@ router.get('/',async (req,res)=>
 router.get('/:id',async (req,res)=>
 {
     /* get the details of requistion */
-    DB.query(`SELECT  mmdocument.description,material.idMaterial,mmdocument.idDoc as idDoc,request_date,ValidTo,Vendors.* , MaterialCode 
-    , MaterialName, documentdetails.price as price, qty , 
+    DB.query(`SELECT  mmdocument.description,material.idMaterial,mmdocument.idDoc as idDoc,request_date,ValidTo , MaterialCode 
+    , MaterialName,qty , 
     Storage.idStorage ,StorageName , StorageStreet ,StoragePostalCode,StorageCity,StorageCountry,
     ORGname , ORGStreet , ORGCountry , ORGCity , ORGPostalCode
         from mmdocument inner join documentdetails on mmdocument.idDoc = documentdetails.idDoc
         inner join material on documentdetails.idMaterial = material.idMaterial
-        inner join vendors on vendors.idVendors = mmdocument.idVendors
         inner join storage on storage.idStorage = mmdocument.idStorage
         inner join org on org.idORG = storage.idORG
         where mmdocument.idDoc = ${req.params.id}`,(err,result)=>
@@ -41,8 +40,9 @@ router.post('/',async (req,res)=>
 {   
     const {vendorsID , requestDate , validTo , description, idStorage} = req.body;
     const def = null;
+
     DB.query(`INSERT INTO mmdocument
-            values ('','${requestDate}','${validTo}','${description}',1,'${vendorsID}','${idStorage}',null,1,'') ;`
+            values ('','${requestDate}','${validTo}','${description}',1,null,'${idStorage}',null,1,'') ;`
             ,(err,result)=>
     {
         if(err) console.log(err)
@@ -70,10 +70,10 @@ router.post('/detail',async(req,res)=>
     console.log(req.body);
     const {Material} = req.body
     let sql = `INSERT INTO DocumentDetails values `
-    sql += `(${refid},${Material[0].idMaterial},${Material[0].qty},${Material[0].price})`
+    sql += `(${refid},${Material[0].idMaterial},${Material[0].qty},null)`
     for(let i=1 ; i<Material.length;i++)
     {
-      sql += `,(${refid},${Material[i].idMaterial},${Material[i].qty},${Material[i].price})`
+      sql += `,(${refid},${Material[i].idMaterial},${Material[i].qty},null)`
     }
     sql += ';'
     DB.query(`${sql}`

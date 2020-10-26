@@ -10,7 +10,7 @@
                                  <b-th colspan="3">Code</b-th>
                                  <b-th colspan="3">Name</b-th>
                                  <b-th colspan="3">UNIT</b-th>
-                                 <b-th colspan="3">Unit Price($)</b-th>
+                                 <b-th colspan="3">Unit Price(฿)</b-th>
                                  <b-th colspan="3">QTY ORDERED </b-th>
                                  <b-th colspan="3">QTY RECEIVED</b-th>
                                  <b-th colspan="3">Total ($)</b-th>
@@ -138,7 +138,7 @@
      async asyncData({$axios,params,query})
   {
 
-    const requistion = await $axios.$get(`/api/mm/requistion/${query.ref}`)
+    const requistion = await $axios.$get(`/api/mm/goodreceipt/${query.ref}`)
         const msg = '';
         console.log(requistion)
         return {requistion,msg};

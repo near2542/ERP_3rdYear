@@ -17,31 +17,19 @@
             <p><strong>Valid To Date: </strong>{{requistion[0].ValidTo}}</p>
                 </div>
                 <!--------------- ------------->
-            <div class="address">
-                
-                    <div>
-                        <div class="Address-Heading">Vendors Address</div>
-                        <div >{{requistion[0].VendorsName}}</div>
-                        <div>{{requistion[0].VendorsStreet}} {{requistion[0].VendorsCity}}</div>
-                        <div>{{requistion[0].VendorsCountry}}</div>
-                        <div>{{requistion[0].VendorsPostalCode}}</div>
-                    </div>
 
-                    <div>
-                    <div class="Address-Heading">Ship To:</div>
-                    <div>{{requistion[0].StorageName}}</div>
-                    <div> {{requistion[0].StorageStreet}}  {{requistion[0].StorageCity}}</div>
-                    <div>{{requistion[0].StorageCountry}}</div>
-                    <div>{{requistion[0].StoragePostal}}</div>
-                </div>
-                <div>
-                    <div class="Address-Heading">Bill To:</div>
-                    <div>{{requistion[0].ORGname}}</div>
-                    <div> {{requistion[0].ORGStreet}}  {{requistion[0].ORGPostalCode}}</div>
-                    <div>{{requistion[0].ORGCountry}}</div>
-                    <div>{{requistion[0].ORGPostalCOde}}</div>
-                </div>
-                </div>
+                <div class="description"><strong>Note:</strong> <p class="descriptiontext">{{requistion[0].description}}</p></div>
+            <div class="address">
+                    <div></div>
+                    
+                        <div>
+                            <strong>Ship to :</strong>    
+                            <p>{{requistion[0].StorageName}} </p>
+                            <p>{{requistion[0].StorageStreet}} {{requistion[0].StorageCity}}</p>
+                            <p>{{requistion[0].StorageCountry}},{{requistion[0].StoragePostalCode}}</p>
+                        </div>
+                        
+                  </div>
                 <!--------------- ------------->
         
                 <div class="content">
@@ -50,26 +38,22 @@
                      <tr>
                      <th colspan="3">Code</th>
                      <th colspan="3">Name</th>
-                     <th colspan="3">Price</th>
+       
                      <th colspan="3">Qty</th>
-                     <th colspan="3">Total</th>
+
                     </tr>
                      <tr v-for="(requis) in requistion" :key="requis.idMaterial">
                      <td colspan="3">{{requis.MaterialCode}}</td>
                      <td colspan="3">{{requis.MaterialName}}</td>
-                     <td colspan="3">{{requis.price}}</td>
+            
                      <td colspan="3">{{requis.qty}}</td>
-                     <td colspan="3">{{requis.qty*requis.price}}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="12" class="Total" >Total</td>
-                        <td colspan="3" class="Total-price">{{calculate}}</td>
+      
                     </tr>
                      </table>
                      
                     
                 </div>
-             <div class="description"><strong>Description:</strong> <p class="descriptiontext">{{requistion[0].description}}</p></div>
+             
        </div>
      </div>
 
@@ -85,7 +69,9 @@
         },
      async asyncData({$axios,params})
   {
+      const vendor = await $axios.$get('/api/mm/vendors')
     const data = await $axios.$get(`/api/mm/requistion/${params.id}`)
+    console.log(data)
    const requistion = data.map((datas) =>
     {
         datas.request_date = datas.request_date.toString().slice(0,10)
@@ -93,7 +79,7 @@
         return datas; 
     })
     console.log(requistion);
-  return {requistion};
+  return {requistion,vendor};
   },
   computed:{
       calculate:function()

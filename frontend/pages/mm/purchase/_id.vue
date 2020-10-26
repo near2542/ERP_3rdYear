@@ -20,7 +20,7 @@
             <div class="address">
                 
                     <div>
-                        <div class="Address-Heading">Vendors Address</div>
+                        <div class="Address-Heading">Vendors Address: </div>
                         <div class="Address-Heading">{{requistion[0].VendorsName}}</div>
                         <div>{{requistion[0].VendorsStreet}} {{requistion[0].VendorsCity}}</div>
                         <div>{{requistion[0].VendorsCountry}}</div>

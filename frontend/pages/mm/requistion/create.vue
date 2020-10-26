@@ -5,25 +5,23 @@
     <b-alert class="noti" v-if="msg.status=='danger'" variant="danger" show>{{msg.message}}</b-alert>
     <b-form @submit="onSubmit" @reset="onReset">
 
-        Please select vendors
-           <b-form-select v-model="form.vendorsID" required :options="vendors" class="mb-3">
-      <template #first>
-        <b-form-select-option :value="null" disabled>-- Please select an option --</b-form-select-option>
-      </template>
-      </b-form-select>
+    
         
       <!-------------------------------------------------------------------------->
+      <h1 class="mt-4">Create Requistion Document</h1>
 <b-form-group
+        class="mt-4"
         id="input-group-1"
         label="Description"
         label-for="Material Description"
       >
-        <b-form-input
+        <b-form-textarea
           id="input-1"
           v-model="form.description"
           type="text"
+          size="lg"
           placeholder="Description"
-        ></b-form-input>
+        ></b-form-textarea>
       </b-form-group>
 
 
@@ -38,24 +36,15 @@
 
  <div class="godown mb-3" v-for="(Mat,index) in form.Material" :key="index"  >
 <h3 variant="success">Material : {{index+1}}</h3>
-<b-form inline class="mb-4 mats" >
-      <label for="material" class="mr-2">Material: </label>
+<b-form inline class="mb-4 mats mr-4" >
+      <label for="material" class="mr-4">Material: </label>
       <b-form-select v-model="form.Material[index].idMaterial" required :options="materials" class="mb-3 mr-1">
       <template #first>
         <b-form-select-option :value="null" disabled>-- Please select an option --</b-form-select-option>
       </template>
       </b-form-select>
-      <label for="material" class="mr-2">Price: </label>
-      <b-form-input
-          id="input-2"
-          class="mr-2"
-          v-model="form.Material[index].price"
-          type="number"
-          step="any"
-          required
-          placeholder="Enter Price"
-        ></b-form-input>
-      <label for="material" class="mr-2">Qty: </label>
+  
+      <label for="material" class="mr-2 ml-4">Qty: </label>
       <b-form-input
           id="input-2"
           class="mr-2"
@@ -63,19 +52,9 @@
           type="number"
           step="any"
           required
-          placeholder="Enter Price"
+          placeholder="Enter quantity"
         ></b-form-input>
 
-        Total:
-        <b-form-input
-        class="mr-2"
-          id="input-2"
-          :value="form.Material[index].qty*form.Material[index].price"
-          type="number"
-          step="any"
-          disabled
-          placeholder=""
-        ></b-form-input>
         Delete:<b-icon-trash-fill variant="danger" @click="del(index)" scale="1.5"></b-icon-trash-fill>
 </b-form>
 </div>
@@ -117,7 +96,6 @@
           Material:[{
             idMaterial:'',
             qty:'',
-            price:'',
           },
           ],
         },
@@ -128,7 +106,7 @@
           addmore(){
             this.form.Material.push({idMaterial:'',
             qty:'',
-            price:'',
+        
             })
           },
           del(index)
