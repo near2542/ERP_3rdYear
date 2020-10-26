@@ -18,6 +18,7 @@ router.get('/:id',async (req,res)=>
     where id = ${req.params.id}`,(err,result)=>
     {
         if(err) console.log(err);
+        console.log(result);
         res.json(result);
     });
 })

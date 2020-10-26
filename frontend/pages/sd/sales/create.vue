@@ -16,9 +16,9 @@
                            <b-tr>
                                  <b-th colspan="3">Code</b-th>
                                  <b-th colspan="3">Name</b-th>
-                                 <b-th colspan="3">Price ($)</b-th>
-                                 <b-th colspan="3">Qty ($)</b-th>
-                                 <b-th colspan="3">Total ($)</b-th>
+                                 <b-th colspan="3">Price (฿)</b-th>
+                                 <b-th colspan="3">Qty </b-th>
+                                 <b-th colspan="3">Total (฿)</b-th>
                            </b-tr>
                         </b-thead>
                         <b-tbody>
@@ -42,7 +42,7 @@
                                  <b-th colspan="3">Discount Total</b-th>
                              
                         </b-tr>
-                        <b-tr  v-for="dis in discount" :key="dis.materialID">
+                        <b-tr  v-for="dis in discount" :key="dis.description">      
                                  <b-th colspan="3">{{dis.idDiscount}}</b-th>
                                  <b-th colspan="9">{{dis.description}}</b-th>
                                  <b-th colspan="3">{{dis.Total}}</b-th>
@@ -123,9 +123,7 @@
       <b-button type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
-    <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ form }} {{discount}} {{requistion}} {{requistion[0]}}</pre>
-    </b-card>
+
    
   </div>
 </template>
@@ -203,9 +201,9 @@
   {
 
     const requistion = await $axios.$get(`/api/sd/quotation/${query.ref}`)
+    console.log(`api/sd/condition/${requistion[0].idDiscount}`)
     const discount = await $axios.$get(`api/sd/condition/${requistion[0].idDiscount}`)
-
-    console.log(requistion)
+  console.log(requistion);
     console.log(discount)
         const msg = '';
         return {requistion,msg,discount};

@@ -80,8 +80,6 @@
 <b-form inline class="mb-4 godown" >
     <label  class="ml-3 mr-3 " for="datepicker-request-date" top>Select Request Date:</label>
     <b-form-datepicker required class=" col-4 mr-5" v-model="form.requestDate" varinat="success"  id="datepicker-request-date" placeholder="Request Date" locale="en"></b-form-datepicker>
-    <label  for="datepicker-valid-to"  class="mr-3">Valid To:</label>
-    <b-form-datepicker required class=" col-4" v-model="form.validTo" id="datepicker-valid-to" placeholder="Valid date" locale="en"></b-form-datepicker>
  </b-form >   
 <!-------------------------------------------------------------------------->
 
@@ -103,9 +101,6 @@
       <b-button type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
-    <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ form }}</pre>
-    </b-card>
    
   </div>
 </template>

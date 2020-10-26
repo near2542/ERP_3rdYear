@@ -114,9 +114,7 @@
       <b-button type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
-    <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ form }} {{requistion}} {{requistion[0]}}</pre>
-    </b-card>
+  
    
   </div>
 </template>
@@ -168,7 +166,7 @@
          await this.fetchPost(JSON.stringify(discount),`/api/sd/condition/detail`)
 */
          /////////INSERT INTO CONDITION ///////////
-        await this.$axios.$put(`/api/sd/packing/${this.form.refID}`,null,null)
+        await this.$axios.$put(`/api/sd/pack/${this.form.refID}`,null,null)
         /////////PUSH LEFT ID TO 
          console.log('imhere5')
         this.redirect(detailsID[0].idDoc)

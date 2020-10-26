@@ -9,7 +9,7 @@ router.get('/',async (req,res)=>
     console.log('imhere');
     DB.query(`select * from mmdocument left join MMDocType on Doctype = idDocType 
                 left join Vendors on Vendors.idVendors = MMdocument.idVendors 
-                where DocType= 4`,(err,result)=>
+                where DocType= 4 order by idDoc desc`,(err,result)=>
     {
         if(err) console.log(err)
         res.json(result);

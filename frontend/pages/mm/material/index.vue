@@ -22,7 +22,7 @@
                               <b-th colspan="3">Code</b-th>
                               <b-th colspan="3">Name</b-th>
                               <b-th colspan="4">Description</b-th>
-                              <b-th colspan="3">Price ($)</b-th>
+                              <b-th colspan="3">Price (฿)</b-th>
                               <b-th colspan="3">Weight(KG)</b-th>
                               <b-th colspan="3">Created at</b-th>
                               <b-th colspan="4">Action</b-th>

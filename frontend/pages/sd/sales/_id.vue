@@ -10,7 +10,7 @@
                 <p>Tel : +99 999 9999</p>
                 <p>euphoriaspeed@gmail.com</p>
                 </div>
-                <div class="header"><h3>{{data[0].Name}}<br>SO#{{data[0].idDoc}}</h3></div>
+                <div class="header"><h3>Sales Order<br>SO#{{data[0].idDoc}}</h3></div>
             </header>
            
            

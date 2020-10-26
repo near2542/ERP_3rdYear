@@ -74,9 +74,7 @@
       <b-button type="reset" variant="danger">Reset</b-button>
   </b-form>
   <!------------------------------------------------------------------------>
-    <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ form }}{{requistion}} </pre>
-    </b-card>
+  
   </div>
 </template>
 

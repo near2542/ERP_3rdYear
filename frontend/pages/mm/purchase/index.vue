@@ -21,8 +21,8 @@
                               <b-th colspan="2">referenced ID</b-th>
                               <b-th colspan="3">Vendors Name</b-th>
                               <b-th colspan="4">Description</b-th>
-                              <b-th colspan="3">request_date </b-th>
-                              <b-th colspan="4">Valid To</b-th>
+                              <b-th colspan="3">Request Delivery Date </b-th>
+                             
                               <b-th colspan="6">Action</b-th>
                         </b-tr>
                      </b-thead>
@@ -33,7 +33,7 @@
                               <b-td colspan="3">{{requistion.VendorsName}}</b-td>
                               <b-td colspan="4">{{requistion.description}}</b-td>
                               <b-td colspan="3">{{requistion.request_date}}</b-td>
-                              <b-td colspan="4">{{requistion.ValidTo}}</b-td>
+    
                               <b-td colspan="6">
                                 
                            <div v-if="requistion.Stat == 1">

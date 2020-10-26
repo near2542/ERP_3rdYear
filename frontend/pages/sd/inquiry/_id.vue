@@ -42,7 +42,7 @@
                      <th colspan="3">Qty</th>
                     </tr>
                      <tr v-for="datas in data" :key="datas.materialID">
-                        <td colspan="3">{{datas.CustomerName}}</td>
+                        <td colspan="3">{{datas.MaterialCode}}</td>
                         <td colspan="3">{{datas.MaterialName}}</td>
                         <td colspan="3">{{datas.qty}}</td>
                     </tr>

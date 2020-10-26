@@ -39,7 +39,7 @@
                             </div>
                             
                             <div v-else>
-                              Refered
+                            
                               <nuxt-link :to="`/sd/billing/${data.idDoc}`"><b-icon-eye-fill class="mr-2" variant="success"  scale="1.5"></b-icon-eye-fill></nuxt-link>
                             </div>
                               </b-td>
