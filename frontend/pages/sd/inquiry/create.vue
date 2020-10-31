@@ -5,7 +5,7 @@
     <b-alert class="noti" v-if="msg.status=='danger'" variant="danger" show>{{msg.message}}</b-alert>
     <b-form @submit="onSubmit" @reset="onReset">
 
-        Please select vendors
+        Please select customer
            <b-form-select v-model="form.customerID" required :options="vendors" class="mb-3">
       <template #first>
         <b-form-select-option :value="null" disabled>-- Please select an option --</b-form-select-option>
@@ -15,7 +15,7 @@
       <!-------------------------------------------------------------------------->
 <b-form-group
         id="input-group-1"
-        label="Material Description"
+        label="Description"
         label-for="Material Description"
       >
         <b-form-input

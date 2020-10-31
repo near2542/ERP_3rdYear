@@ -41,6 +41,8 @@ export default {
 
 console.log(Date)
 
+console.log(datasets);
+
 
      return {
       barChartData: {

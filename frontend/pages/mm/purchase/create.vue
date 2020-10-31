@@ -92,7 +92,7 @@ Please select vendors
           placeholder="Enter quantity"
         ></b-form-input>
 
-<label for="material" class="mr-2 ml-4">Qty: </label>
+<label for="material" class="mr-2 ml-4">Total: </label>
       <b-form-input
           id="input-2"
           class="mr-2"
